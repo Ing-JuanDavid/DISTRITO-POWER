@@ -1,2 +1,3 @@
 # DISTRITO-POWER
-Sistema de gestión de tareas en java usando las tecnologias de Spring Boot y JavaFX
+Diseño de un sitio web para la la gestión de membresías y pagos de un gimnasio, además de implementar un portal para que los usuarios consulten información relevante como el estado de membresia, historial de asistencias...
+
