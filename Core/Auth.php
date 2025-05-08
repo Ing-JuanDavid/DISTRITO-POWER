@@ -1,0 +1,122 @@
+<?php
+
+namespace Core;
+
+use Core\Validator;
+use Core\Response;
+use models\User;
+use PDOException;
+
+require base_path('helper/mailer.php');
+
+
+class Auth {
+    
+    public static function logIn() 
+    {
+        $url = '/login';
+        
+        $inputs = getPost('_method', 'email', 'pass', 'remember');
+
+        $inputs = Validator::inputs($inputs, $url);
+        Validator::email($inputs['email'], $url);
+
+        $user = User::findUserByEmail($inputs['email']);
+
+        if($user) {
+            if(password_verify($inputs['pass'], $user->__get("password"))) {
+                session_start();
+                $_SESSION["user"] = $inputs['email'];
+                $_SESSION["rol"] = $user->__get("rol");
+            
+                if($inputs['remember']) 
+                    self::rememberSession($user);
+                else
+                    setcookie("token", "", time() - 3600, "/", false, true);
+            
+                Response::redirectToDashboard();
+
+            } else Response::redirect($url, 'error', 'Contraseña incorrecta');
+            
+        } else Response::redirect($url, 'error', 'Usuario no encontrado');   
+        
+    }
+
+    public static function signUp() 
+    {
+        $url = '/signup';
+        
+        $inputs = getPost('id', 'name', 'email', 'pass');
+    
+        $inputs = Validator::inputs($inputs, $url);
+
+        Validator::email($inputs['email'], $url);
+
+        if(User::findUserByEmail($inputs['email'])) Response::redirect($url, 'error', 'Ya existe una cuenta con este email');
+        
+        if(User::findUserById($inputs['id'])) Response::redirect($url, 'error', 'Ya existe una cuenta con este id');
+
+        $hashPass = password_hash($inputs['pass'], PASSWORD_DEFAULT);
+        $user = new User($inputs['id'], $inputs['name'], $inputs['email'], $hashPass, "user", null);
+
+        try {
+            $user->saveUser();
+            Response::redirect('/login', 'success', 'Cuenta creada exitosamente');
+        } catch(PDOException $e) {
+            Response::redirect($url, 'Error al crear cuenta');
+        }    
+    }
+
+    public static function recoverPass() 
+    {
+        $url = '/recover';
+        
+        $email = $_POST['email'] ?? null;
+
+        if(! $email) Response::redirect($url, 'error', 'El campo es requerido');
+
+        Validator::email($email, $url);
+
+        $user = User::findUserByEmail($email);
+
+        if($user) {
+            $tempPass = self::generatePass(10);
+            $tempPassHash = password_hash($tempPass, PASSWORD_DEFAULT);
+            User::editUser($user, "password", $tempPassHash);
+            try {
+                \Mailer::sendMail($email, $user->__get("name"), "Contraseña provicional", "Contraseña: $tempPass");
+                Response::redirect('/login', 'success', 'Contraseña provicional enviada');
+            }catch(\Exception $e) {
+                Response::redirect($url, 'error', 'Error al enviar contraseña provicional');
+            }
+        }
+        else {
+            Response::redirect($url, 'error', 'Usuario no encontrado');
+        }
+    }
+
+    private static function rememberSession($user) 
+    {
+        $token = bin2hex(random_bytes(8));
+        $hashToken = hash("md5", $token,);
+        setcookie("token", $token, time() + (86400 * 7), "/", false, true);
+        User::editUser($user, "token", $hashToken);
+    }
+
+    public static function logOut() 
+    {
+        session_start();
+        $_SESSION = [];
+        session_destroy();
+        $_COOKIE = [];
+        setcookie("token", "", time() - 3600, "/", false, true);
+        Response::redirect('/');
+    }
+
+
+    public static function generatePass($length) {
+            $caracteres = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_=+';
+            return substr(str_shuffle(str_repeat($caracteres, ceil($length / strlen($caracteres)))), 0, $length);
+    }
+}
+

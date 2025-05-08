@@ -1,3 +1,2 @@
 # DISTRITO-POWER
 Diseño de un sitio web para la la gestión de membresías y pagos de un gimnasio, además de implementar un portal para que los usuarios consulten información relevante como el estado de membresia, historial de asistencias...
-
