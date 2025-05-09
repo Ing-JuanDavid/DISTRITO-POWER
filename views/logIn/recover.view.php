@@ -3,19 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
     <title>Recuperar</title>
 </head>
-<body>
+<body class="overflow-hidden">
     <?php view('partials/nav.php'); ?>
-    <h2>Recuperar contraseña</h2>
-    <form action="/recover" method="post">
-        <input type="hidden" name="_method" value = 'POST'>
-        <label for="">Email</label>
-        <input type="email" name="email">
-        <input type="submit" value="Recuperar">
-        <?php if($alert): ?>
-            <?= $alert['body'] ?>
-        <?php endif; ?>
-    </form>
+
+    <div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="p-4" style="width: 100%; max-width: 400px;">
+        <h4 class="text-center mb-3">Recuperar contraseña</h4>
+        <form action="/recover" method="POST">
+            <input type="hidden" name="_method" value="POST">
+
+            <div class="mb-3">
+                <input type="email" class="form-control border-secondary-subtle" name="email" placeholder="Email">
+            </div>
+
+            <button type="submit" class="btn btn-info text-light fw-bold w-100">Recuperar</button>
+
+            <?php if ($alert): ?>
+                <div class="mt-3 alert alert-<?= $alert['type'] ?> "><?= $alert['body'] ?></div>
+            <?php endif; ?>
+        </form>
+    </div>
+</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
 </body>
 </html>

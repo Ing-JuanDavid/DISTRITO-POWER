@@ -4,6 +4,7 @@ namespace Core;
 
 use Core\Response;
 use Core\Validator;
+use models\Membership;
 use models\MembershipType;
 use models\Pay;
 use models\User;
@@ -61,9 +62,8 @@ class Admin {
         }
     }
 
-    public function addPay($post)
+    public static function addPay()
     {
-
         $url = '/admin/pays';
 
         $inputs = getPost('userId', 'typeId');
@@ -74,7 +74,15 @@ class Admin {
 
             if(!  MembershipType::findById($inputs['typeId'])) Response::redirect($url, 'error', 'Membresia no encontrada');
 
+            $membership = Membership::findByUserId($inputs['userId']);
+
+            if($membership && $membership['status'] != 'vencida') Response::redirect($url, 'error', 'Ya el usuario tiene una membresia');
+            
             $pay = new Pay($inputs['userId'], $inputs['typeId']);
+            
+            if($membership['status'] == 'vencida') Membership::deleteByUserId($inputs['userId']);
+
+            // generar el pago
 
             try {
                 $pay->savePay();
@@ -83,5 +91,21 @@ class Admin {
                 Response::redirect($url, 'success', 'Error al registrar pago');
             }
         
+    }
+
+    public static function takeAsist($memId) 
+    {
+        $url = '/admin/pays';
+        $mem = Membership::findByMemId($memId);
+        
+        if(! $mem || $mem['status'] == 'vencida') Response::redirect($url, 'error', 'Accion invalida');
+
+        try {
+            Membership::takeAsist($mem);
+            Response::redirect($url, 'success', 'Asistencia registrada');
+        } catch(PDOException $e) {
+            Response::redirect($url, 'error', $e->getMessage());
+        }   
+
     }
 }

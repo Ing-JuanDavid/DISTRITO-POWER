@@ -8,7 +8,7 @@ class Validator {
     public static function email($email, $url)
     {
         if(! filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            Response::redirect($url, 'error', 'Email invalido');
+            Response::redirect($url, 'danger', 'Email invalido');
         }
     }
 
@@ -20,7 +20,7 @@ class Validator {
             if($input == 'remember') continue;
 
             if(! isset($value) || empty($value)) {
-                Response::redirect($url, 'error',  'Campos requeridos');
+                Response::redirect($url, 'danger',  'Campos requeridos');
             }
         }
 
@@ -30,7 +30,7 @@ class Validator {
     public static function rol($rol, $allowedRoles = [], $url)
     {
         if (! in_array($rol, $allowedRoles)) {
-            Response::redirect($url, 'error', 'Rol invalido');
+            Response::redirect($url, 'danger', 'Rol invalido');
         }
     }
 }

@@ -36,9 +36,9 @@ class Auth {
             
                 Response::redirectToDashboard();
 
-            } else Response::redirect($url, 'error', 'Contraseña incorrecta');
+            } else Response::redirect($url, 'danger', 'Contraseña incorrecta');
             
-        } else Response::redirect($url, 'error', 'Usuario no encontrado');   
+        } else Response::redirect($url, 'info', 'Usuario no encontrado');   
         
     }
 
@@ -52,10 +52,10 @@ class Auth {
 
         Validator::email($inputs['email'], $url);
 
-        if(User::findUserByEmail($inputs['email'])) Response::redirect($url, 'error', 'Ya existe una cuenta con este email');
+        if(User::findUserById($inputs['id'])) Response::redirect($url, 'danger', 'Ya existe una cuenta con este id');
         
-        if(User::findUserById($inputs['id'])) Response::redirect($url, 'error', 'Ya existe una cuenta con este id');
-
+        if(User::findUserByEmail($inputs['email'])) Response::redirect($url, 'danger', 'Ya existe una cuenta con este email');
+        
         $hashPass = password_hash($inputs['pass'], PASSWORD_DEFAULT);
         $user = new User($inputs['id'], $inputs['name'], $inputs['email'], $hashPass, "user", null);
 
@@ -63,7 +63,7 @@ class Auth {
             $user->saveUser();
             Response::redirect('/login', 'success', 'Cuenta creada exitosamente');
         } catch(PDOException $e) {
-            Response::redirect($url, 'Error al crear cuenta');
+            Response::redirect($url, 'danger', 'Error al crear cuenta');
         }    
     }
 
@@ -73,7 +73,7 @@ class Auth {
         
         $email = $_POST['email'] ?? null;
 
-        if(! $email) Response::redirect($url, 'error', 'El campo es requerido');
+        if(! $email) Response::redirect($url, 'danger', 'El campo es requerido');
 
         Validator::email($email, $url);
 
@@ -87,11 +87,11 @@ class Auth {
                 \Mailer::sendMail($email, $user->__get("name"), "Contraseña provicional", "Contraseña: $tempPass");
                 Response::redirect('/login', 'success', 'Contraseña provicional enviada');
             }catch(\Exception $e) {
-                Response::redirect($url, 'error', 'Error al enviar contraseña provicional');
+                Response::redirect($url, 'danger', 'Error al enviar contraseña provicional');
             }
         }
         else {
-            Response::redirect($url, 'error', 'Usuario no encontrado');
+            Response::redirect($url, 'info', 'Usuario no encontrado');
         }
     }
 

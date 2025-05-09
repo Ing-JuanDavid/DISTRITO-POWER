@@ -5,6 +5,7 @@ $router->get('/login', base_path('controllers/logIn/logIn.php'));
 $router->get('/signup', base_path('controllers/logIn/signUp.php'));
 $router->get('/recover', base_path('controllers/logIn/recover.php'));
 $router->get('/logout',  base_path('controllers/auth/logOut.php'));
+$router->get('/admin/pays/asistencia', base_path('controllers/admin/asistencia.php'));
 
 $router->get('/admin/dashboard', base_path('controllers/admin/index.php'));
 $router->get('/admin/pays', base_path('controllers/admin/pays.php'));
@@ -16,4 +17,5 @@ $router->post('/signup', base_path('controllers/auth/signUp.php'));
 
 $router->post('/admin/dashboard/adduser', base_path('controllers/admin/createUser.php'));
 $router->post('/admin/dashboard/addmem', base_path('controllers/admin/createMemT.php'));
+$router->post('/admin/pays/addpay', base_path('controllers/admin/createPay.php'));
 
