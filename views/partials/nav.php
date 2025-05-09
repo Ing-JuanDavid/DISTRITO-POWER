@@ -10,15 +10,16 @@
 
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="/">Inicio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/login">LogIn</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/signup">SignIn</a>
-                    </li>
+                    
+                    <?php if ($links) : ?>
+                        <?php foreach($links as $link): ?>
+                            <li class="nav-item"><a class="nav-link" href=<?= $link['route'] ?>><?= $link['name'] ?></a>
+                            </li>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <p>Debe definir los enlaces</p>
+                    <?php endif;?>
+                    
                 </ul>
             </div>
         </div>

@@ -1,22 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pagos</title>
-</head>
+<?php view('partials/head.php', ['title' => 'Pagos']) ?>
 
-<body>
-    <header>
-        <navbar>
-            <ul>
-                <li><a href="/admin/dashboard">Dashboard</a></li>
-                <li><a href="/admin/pays">Pagos</a></li>
-                <li><a href="/logout">Salir</a></li>
-            </ul>
-        </navbar>
-    </header>
+<body class="overflow-hidden">
+    
+    <?php view('partials/nav.php', ['links' => $links]); ?>
+
     <h1>Pagos</h1>
 
     <h2>Registrar</h2>
@@ -67,7 +57,7 @@
             <?php endif; ?>
         </tbody>
     </table>
-
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
 </body>
 
 </html>

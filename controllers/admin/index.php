@@ -6,10 +6,11 @@ use models\User;
 
 requireRole('admin');
 
-$conn = App::container()->resolve('Core/Database');
+$links = require base_path('links.php');
 
 view('admin/dashboard.view.php',[
-    'users' => User::getUsers($conn),
-    'mems' => MembershipType::getMems($conn),
+    'links' => $links,
+    'users' => User::getUsers(),
+    'mems' => MembershipType::getMems(),
     'alert' => Response::getAlert()
 ]); 

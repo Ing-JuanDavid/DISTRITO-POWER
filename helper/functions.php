@@ -15,7 +15,25 @@ use function PHPSTORM_META\map;
     function abort($code = 404) 
     {
         http_response_code($code);
-        view("errores/$code.php");
+        
+        $links = [
+            [
+                'name' => 'Inicio',
+                'route' => '/'
+            ],
+            [
+                'name' => 'LogIn',
+                'route' => '/login'
+            ],
+            [
+                'name' => 'sigUp',
+                'route' => '/signup'
+            ]
+    ];
+
+        view("errores/$code.php", [
+            'links' => $links
+        ]);
         die();
     }
 

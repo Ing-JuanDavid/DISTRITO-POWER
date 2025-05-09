@@ -1,30 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel</title>
-</head>
+<?php view('partials/head.php', ['title' => 'Dashboard']) ?>
 
-<body>
-    <header>
-        <navbar>
-            <ul>
-                <li><a href="/admin/dashboard">Dashboard</a></li>
-                <li><a href="/admin/pays">Pagos</a></li>
-                <li><a href="/logout">Salir</a></li>
-            </ul>
-        </navbar>
-    </header>
-    <h1>Panel de control</h1>
-    <h2>Acciones</h2>
+<body class="overflow-hidden">
+    
+    <?php view('partials/nav.php', ['links' => $links]); ?>
+    
+    <h2>Panel de control</h1>
+    <h3>Acciones</h3>
 
     <?php if ($alert): ?>
         <?= $alert['body'] ?>
     <?php endif; ?>
 
-    <h3>Agregar usuario</h4>
+    <h5>Agregar usuario</h5>
         <form action="/admin/dashboard/adduser" method="post">
             <input type="hidden" name="_method" value="POST">
             <label for="userId">Id</label>
@@ -43,7 +33,7 @@
             <input type="submit" value="Crear">
         </form>
 
-        <h3>Usuarios</h3>
+        <h5>Usuarios</h3>
         <table>
             <thead>
                 <tr>
@@ -70,7 +60,7 @@
             </tbody>
         </table>
 
-        <h3>Crear membresia</h3>
+        <h5>Crear membresia</h5>
         <form action="/admin/dashboard/addmem" method="post">
             <input type="hidden" name="_method" value="POST">
             <label for="memId">Id</label>
@@ -84,7 +74,7 @@
             <input type="submit" value="Crear">
         </form>
 
-        <h3>Membresias</h3>
+        <h5>Membresias</h5>
         <table>
             <thead>
                 <tr>
@@ -112,6 +102,7 @@
                 <?php endif; ?>
             </tbody>
         </table>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
 </body>
 
 </html>
