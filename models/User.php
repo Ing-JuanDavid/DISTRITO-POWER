@@ -49,6 +49,11 @@ class User {
         }
     }
 
+    public static function deleteById($id) {
+            $sql = "DELETE FROM user WHERE userId = ?";
+            return self::getConnection()->query($sql, [$id]);
+    }
+
     public static function findUserById($id) {
         $sql = "SELECT * FROM user WHERE userId = ?";
         $result =self::getConnection()->query($sql, [$id])->fetch();

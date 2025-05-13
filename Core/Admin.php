@@ -11,7 +11,6 @@ use models\User;
 use PDOException;
 
 class Admin {
-    private $conn;
 
     public static function addUser() 
     {
@@ -25,9 +24,9 @@ class Admin {
 
         Validator::email($inputs['email'], $url);
             
-        if (User::findUserById($inputs['id'])) Response::redirect($url, 'error', 'Ya existe un usuario con este ID');
+        if (User::findUserById($inputs['id'])) Response::redirect($url, 'danger', 'Ya existe un usuario con este ID');
 
-        if (User::findUserByEmail($inputs['email'])) Response::redirect($url, 'error', 'Ya existe un usuario con este email');
+        if (User::findUserByEmail($inputs['email'])) Response::redirect($url, 'danger', 'Ya existe un usuario con este email');
 
         $inputs['pass'] = password_hash($inputs['pass'], PASSWORD_DEFAULT);
         $user = new User($inputs['id'], $inputs['name'], $inputs['email'], $inputs['pass'], $inputs['rol'], null);
@@ -37,8 +36,19 @@ class Admin {
             $user->saveUser();
             Response::redirect($url, 'success', 'Usuario creado exitosamente');
         } catch (\PDOException $e) {
-            Response::redirect($url, 'error', 'Error al crear el usuario');
+            Response::redirect($url, 'danger', 'Error al crear el usuario');
         }    
+    }
+
+    public static function destroyUser()
+    {
+        $url = '/admin/dashboard';
+        $id = $_GET['id'] ?? null;
+        
+        if(! User::findUserById($id)) Response::redirect($url, 'danger', 'No existe el usuario a eliminar');
+
+        
+        if(User::deleteById($id)) Response::redirect($url, 'success', 'Usuario eliminado exitosamente');
     }
 
     public static function addMembershipType()
@@ -50,7 +60,7 @@ class Admin {
 
         $mem = MembershipType::findById($inputs['typeId']);
 
-        if ($mem) Response::redirect($url, 'error', 'Ya existe una membresia con ese Id');
+        if ($mem) Response::redirect($url, 'danger', 'Ya existe una membresia con ese Id');
 
         $mem = new MembershipType($inputs['typeId'], $inputs['name'], $inputs['duration'], $inputs['value']);
 
@@ -58,7 +68,7 @@ class Admin {
             $mem->saveMembershipType();
             Response::redirect($url, 'success', 'Membresia creada exitosamente');
         } catch (PDOException $e) {
-            Response::redirect($url, 'error', 'Error al crear membresia');
+            Response::redirect($url, 'danger', 'Error al crear membresia');
         }
     }
 
@@ -70,13 +80,13 @@ class Admin {
         $inputs = Validator::inputs($inputs, $url);
 
 
-            if(! User::findUserById($inputs['userId'])) Response::redirect($url, 'error', 'Usuario no encontrado');
+            if(! User::findUserById($inputs['userId'])) Response::redirect($url, 'danger', 'Usuario no encontrado');
 
-            if(!  MembershipType::findById($inputs['typeId'])) Response::redirect($url, 'error', 'Membresia no encontrada');
+            if(!  MembershipType::findById($inputs['typeId'])) Response::redirect($url, 'danger', 'Membresia no encontrada');
 
             $membership = Membership::findByUserId($inputs['userId']);
 
-            if($membership && $membership['status'] != 'vencida') Response::redirect($url, 'error', 'Ya el usuario tiene una membresia');
+            if($membership && $membership['status'] != 'vencida') Response::redirect($url, 'danger', 'Ya el usuario tiene una membresia');
             
             $pay = new Pay($inputs['userId'], $inputs['typeId']);
             

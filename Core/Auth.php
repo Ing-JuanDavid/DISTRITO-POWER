@@ -38,7 +38,7 @@ class Auth {
 
             } else Response::redirect($url, 'danger', 'Contraseña incorrecta');
             
-        } else Response::redirect($url, 'info', 'Usuario no encontrado');   
+        } else Response::redirect($url, 'danger', 'Usuario no encontrado');   
         
     }
 
@@ -91,7 +91,7 @@ class Auth {
             }
         }
         else {
-            Response::redirect($url, 'info', 'Usuario no encontrado');
+            Response::redirect($url, 'danger', 'Usuario no encontrado');
         }
     }
 

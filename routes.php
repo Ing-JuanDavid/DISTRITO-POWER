@@ -10,6 +10,7 @@ $router->get('/admin/pays/asistencia', base_path('controllers/admin/asistencia.p
 $router->get('/admin/dashboard', base_path('controllers/admin/index.php'));
 $router->get('/admin/pays', base_path('controllers/admin/pays.php'));
 $router->get('/dashboard', base_path('controllers/user/index.php'));
+$router->get('/admin/dashboard/destuser/', base_path('controllers/admin/destroy.php'));
 
 $router->post('/login', base_path('controllers/auth/logIn.php'));
 $router->post('/recover', base_path('controllers/auth/recover.php'));
