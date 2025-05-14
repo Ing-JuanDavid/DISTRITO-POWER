@@ -82,7 +82,7 @@ class Auth {
         if($user) {
             $tempPass = self::generatePass(10);
             $tempPassHash = password_hash($tempPass, PASSWORD_DEFAULT);
-            User::editUser($user, "password", $tempPassHash);
+            User::editProp($user, "password", $tempPassHash);
             try {
                 \Mailer::sendMail($email, $user->__get("name"), "Contraseña provicional", "Contraseña: $tempPass");
                 Response::redirect('/login', 'success', 'Contraseña provicional enviada');
@@ -100,7 +100,7 @@ class Auth {
         $token = bin2hex(random_bytes(8));
         $hashToken = hash("md5", $token,);
         setcookie("token", $token, time() + (86400 * 7), "/", false, true);
-        User::editUser($user, "token", $hashToken);
+        User::editProp($user, "token", $hashToken);
     }
 
     public static function logOut() 

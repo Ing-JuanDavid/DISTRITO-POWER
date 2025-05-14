@@ -58,6 +58,17 @@ class MembershipType {
         }
         return $result;
     }
+
+    public static function editMem(...$props) {
+        $sql = "UPDATE membershipType SET name = ?, duration = ?, value = ? WHERE typeId = ?";
+        return self::getConnection()->query($sql, $props)->fetchAll();
+    }
+
+    public static function deleteById($id) {
+        $sql = "DELETE FROM membershipType WHERE typeId = ?";
+        return self::getConnection()->query($sql, [$id]);
+    }
+
 }
 
 

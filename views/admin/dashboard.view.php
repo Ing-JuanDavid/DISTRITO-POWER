@@ -7,122 +7,209 @@
 
     <?php view('partials/nav.php', ['links' => $links]); ?>
 
-    <div class="container mx-4 my-3">
-        <h2>Dashboard</h2>
-    </div>
 
-    <div class="container my-1">
+    <div class="d-flex">
+        <!-- Sidebar -->
+        <nav class="bg-primary text-white pt-3" style="width: 250px; height: 100vh; position: fixed;">
+            <ul class="nav flex-column">
 
-        <?php if ($alert): ?>
-            <div class="alert alert-<?= $alert['type'] ?> alert-dismissible fade show position-stiky" role="alert">
-                <?= $alert['body'] ?>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        <?php endif; ?>
+                <li class="nav-item side-item selected">
+                    <a class="nav-link text-white active" href="#users-tab-pane" data-bs-toggle="tab">
+                        <i class="fa-solid fa-users"></i> Gestionar Usuarios
+                    </a>
+                </li>
 
-        <ul class="nav nav-tabs border-secondar-subtle" id="myTab" role="tablist">
-            <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="users-tab" data-bs-toggle="tab" data-bs-target="#users-tab-pane" type="button" role="tab" aria-controls="users-tab-pane" aria-selected="true">Usuarios</button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#mem-tab-pane" type="button" role="tab" aria-controls="mem-tab-pane" aria-selected="false">Membresias</button>
-            </li>
-        </ul>
+                <li class="nav-item side-item">
+                    <a class="nav-link text-white" href="#mems-tab-pane" data-bs-toggle="tab">
+                        <i class="fa-solid fa-credit-card"></i> Gestionar Membresias
+                    </a>
+                </li>
 
-        <div class="tab-content" id="myTabContent">
+                <li class="nav-item side-item">
+                    <a class="nav-link text-white" href="#members-tab-pane" data-bs-toggle="tab">
+                        <i class="fa-solid fa-user-check"></i> Miembros y Asistencia
+                    </a>
+                </li>
 
-            <!-- usersTab -->
-            <div class="tab-pane fade show active my-3" id="users-tab-pane" role="tabpanel" aria-labelledby="users-tab" tabindex="0"">
-                <div class=" d-flex justify-content-end align-items-center mb-3">
-                    <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">
-                        <i class="fa-solid fa-plus"></i> Agregar Usuario
-                    </button>
+                <li class="nav-item side-item">
+                    <a class="nav-link text-white" href="#payments-tab-pane" data-bs-toggle="tab">
+                        <i class="fa-solid fa-money-bill"></i> Pagos
+                    </a>
+                </li>
+
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="container-fluid" style="margin-left: 250px;">
+
+            <div class="tab-content" id="myTabContent-main">
+                <!-- Sección de Usuarios -->
+                <div class="tab-pane fade show active my-3" id="users-tab-pane" role="tabpanel">
+                    <h3>Gestionar Usuarios</h3>
+                    <!-- usersTable -->
+                    <div class=" d-flex justify-content-end align-items-center mb-3">
+                        <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">
+                            <i class="fa-solid fa-plus"></i> Agregar Usuario
+                        </button>
+                    </div>
+
+                    <table id="users" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Nombre</th>
+                                <th>Email</th>
+                                <th>Rol</th>
+                                <th>Opciones</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <?php if ($users) : ?>
+                                <?php foreach ($users as $user) : ?>
+                                    <tr>
+                                        <td><?= htmlspecialchars($user["userId"]) ?></td>
+                                        <td><?= htmlspecialchars($user["name"]) ?></td>
+                                        <td><?= htmlspecialchars($user["email"]) ?></td>
+                                        <td><?= htmlspecialchars($user["rol"]) ?></td>
+                                        <td>
+                                            <a
+                                                class="btn btn-sm btn-warning editUser"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#editUser"
+                                                data-userId="<?= $user['userId'] ?>"
+                                                data-name="<?= $user['name'] ?>"
+                                                data-email="<?= $user['email'] ?>"
+                                                data-rol="<?= $user['rol'] ?>">
+                                                <i class="fa-solid fa-pen"></i>
+
+                                            </a>
+
+                                            <a class="btn btn-sm btn-danger" href="/admin/dashboard/destuser/?id=<?= $user['userId'] ?>"><i class="fa-solid fa-trash-can"></i></a>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
                 </div>
 
-                <table id="users" class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Nombre</th>
-                            <th>Email</th>
-                            <th>Rol</th>
-                            <th>Opciones</th>
-                        </tr>
-                    </thead>
+                <!-- Sección de Membresias -->
+                <div class="tab-pane fade my-3" id="mems-tab-pane" role="tabpanel">
+                    <h3>Gestionar Membresias</h3>
+                    <div class=" d-flex justify-content-end align-items-center mb-3">
+                        <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#addMemModal">
+                            <i class="fa-solid fa-plus"></i> Agregar Membresia
+                        </button>
+                    </div>
 
-                    <tbody>
-                        <?php if ($users) : ?>
-                            <?php foreach ($users as $user) : ?>
-                                <tr>
-                                    <td><?= htmlspecialchars($user["userId"]) ?></td>
-                                    <td><?= htmlspecialchars($user["name"]) ?></td>
-                                    <td><?= htmlspecialchars($user["email"]) ?></td>
-                                    <td><?= htmlspecialchars($user["rol"]) ?></td>
-                                    <td>
-                                        <a class="btn btn-sm btn-warning" href="/admin/dashboard/edituser/?id=<?= $user['userId'] ?>"><i class="fa-solid fa-pen"></i></a>
-                                        <a class="btn btn-sm btn-danger" href="/admin/dashboard/destuser/?id=<?= $user['userId'] ?>"><i class="fa-solid fa-trash-can"></i></a>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
-                        <?php else : ?>
+                    <table id="memberships" class="table table-striped">
+                        <thead>
                             <tr>
-                                <td colspan="5">No hay usuarios todavia</td>
+                                <th>Id</th>
+                                <th>Nombre</th>
+                                <th>Duracion (Dias)</th>
+                                <th>Valor</th>
+                                <th>Opciones</th>
                             </tr>
-                        <?php endif; ?>
-                    </tbody>
-                </table>
+                        </thead>
 
-            </div>
+                        <tbody>
+                            <?php if ($mems) : ?>
+                                <?php foreach ($mems as $mem) : ?>
+                                    <tr>
+                                        <td><?php echo htmlspecialchars($mem["typeId"]) ?></td>
+                                        <td><?php echo htmlspecialchars($mem["name"]) ?></td>
+                                        <td><?php echo htmlspecialchars($mem["duration"]) ?></td>
+                                        <td><?php echo htmlspecialchars($mem["value"]) ?></td>
+                                        <td>
+                                            <a
+                                                class="btn btn-sm btn-warning editMem"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#editMem"
+                                                data-typeId="<?= $mem['typeId'] ?>"
+                                                data-name="<?= $mem['name'] ?>"
+                                                data-duration="<?= $mem['duration'] ?>"
+                                                data-value="<?= $mem['value'] ?>">
+                                                <i class="fa-solid fa-pen"></i>
 
-            <!-- memTab -->
-            <div class="tab-pane fade my-3" id="mem-tab-pane" role="tabpanel" aria-labelledby="mem-tab" tabindex="0"">
-                
-                <div class=" d-flex justify-content-end align-items-center mb-3">
-                    <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#addMemModal">
-                        <i class="fa-solid fa-plus"></i> Agregar Membresia
-                    </button>
+                                            </a>
+
+                                            <a class="btn btn-sm btn-danger" href="/admin/dashboard/destmem/?id=<?= $mem['typeId'] ?>"><i class="fa-solid fa-trash-can"></i></a>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
                 </div>
 
-                <table id="memberships" class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Nombre</th>
-                            <th>Duracion</th>
-                            <th>Valor</th>
-                            <th>Opciones</th>
-                        </tr>
-                    </thead>
 
-                    <tbody>
-                        <?php if ($mems) : ?>
-                            <?php foreach ($mems as $mem) : ?>
-                                <tr>
-                                    <td><?php echo htmlspecialchars($mem["typeId"]) ?></td>
-                                    <td><?php echo htmlspecialchars($mem["name"]) ?></td>
-                                    <td><?php echo htmlspecialchars($mem["duration"]) ?></td>
-                                    <td><?php echo htmlspecialchars($mem["value"]) ?></td>
-                                    <td>
-                                        <a class="btn btn-sm btn-warning" href="/admin/dashboard/editmem/id?<?= $mem['typeId'] ?>" ><i class="fa-solid fa-pen"></i></a>
-                                        <a class="btn btn-sm btn-danger" href="/admin/dashboard/destmem/?id=<?= $mem['typeId'] ?>" ><i class="fa-solid fa-trash-can"></i></a>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
-                        <?php else : ?>
+                <!-- Sección de Miembros -->
+                <div class="tab-pane fade my-3" id="members-tab-pane" role="tabpanel">
+                    <h3>Miembros y Asistencia</h3>
+                    <table class="table table-striped" id="members">
+                        <thead>
                             <tr>
-                                <td>No hay membresias todavia</td>
+                                <th>Nombre</th>
+                                <th>Membresia</th>
+                                <th>Dias restantes</th>
+                                <th>Estado</th>
+                                <th>Tomar asistencia</th>
                             </tr>
-                        <?php endif; ?>
-                    </tbody>
-                </table>
+                        </thead>
 
+                        <tbody>
+                            <?php if ($members) : ?>
+                                <?php foreach ($members as $mem) : ?>
+                                    <tr>
+                                        <td><?= htmlspecialchars($mem["user_name"]) ?></td>
+                                        <td><?= htmlspecialchars($mem["membership_type"]) ?></td>
+                                        <td><?= htmlspecialchars($mem["days_res"]) ?></td>
+                                        <td>
+                                            <div class="<?= ($mem['status'] === 'activa') ? 'bg-success' : 'bg-danger' ?> status"><?= htmlspecialchars($mem["status"]) ?></div>
+                                        </td>
+                                        <td><a href=<?= '/admin/pays/asistencia?id=' . $mem['mem_id'] ?>> <?= ($mem['status'] != 'vencida') ? "<i class='fa-solid fa-check'></i>" : '' ?></a></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Sección de Pagos -->
+                <div class="tab-pane fade my-3" id="payments-tab-pane" role="tabpanel">
+                    <h3>Pagos</h3>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>ID de Pago</th>
+                                <th>Usuario</th>
+                                <th>Monto</th>
+                                <th>Fecha</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Aquí se listarán los pagos -->
+                        </tbody>
+                    </table>
+                    <button class="btn btn-primary">Registrar Pago</button>
+                </div>
             </div>
 
+            <?php if ($alert): ?>
+                <div class="alert alert-<?= $alert['type'] ?> alert-dismissible fade show position-stiky" role="alert">
+                    <?= $alert['body'] ?>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            <?php endif; ?>
         </div>
-
     </div>
 
-    <!-- Modals -->
+
+    <!-- Modals add -->
 
     <!-- Add user -->
     <div id="addUserModal" class="modal fade" tabindex="-1">
@@ -218,7 +305,93 @@
         </div>
     </div>
 
+    <!-- Modals edit -->
 
+    <!-- Edit user -->
+
+    <div id="editUser" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5>Editar Usuario</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <form class="" action="/admin/dashboard/edituser" method="post">
+                        <input type="hidden" name="_method" value="POST">
+
+                        <input class="field-edit-user" type="hidden" name="userId" value="">
+
+                        <div class="mb-3">
+                            <label for="edit-name">Nombre</label>
+                            <input class="form-control field-edit-user" type="text" name="name" id="edit-name" value="">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="edit-email">Email</label>
+                            <input class="form-control field-edit-user" type="email" name="email" id="edit-email" value="">
+                        </div>
+
+                        <div class="mb-3 w-25">
+                            <select class="form-control field-edit-user" name="rol">
+                                <option value="">Rol</option>
+                                <option value="admin">Admin</option>
+                                <option value="user">User</option>
+                            </select>
+                        </div>
+
+                        <div class="text-end">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                            <button class="btn btn-md btn-primary" type="submit">Editar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit membership -->
+    <div id="editMem" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5>Editar membresia</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <form class="" action="/admin/dashboard/editmem" method="post">
+                        <input type="hidden" name="_method" value="POST">
+
+                        <input class="field-edit-mem" type="hidden" name="typeId" value="">
+
+                        <div class="mb-3">
+                            <label for="edit-mem-name">Nombre</label>
+                            <input class="form-control field-edit-mem" type="text" name="name" id="edit-mem-name" value="">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="edit-duration">Duracion (dias)</label>
+                            <input class="form-control field-edit-mem" type="number" name="duration" id="edit-duration" value="">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="edit-value">Valor</label>
+                            <input class="form-control field-edit-mem" type="number" name="value" id="edit-value" value="">
+                        </div>
+
+                        <div class="text-end">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                            <button class="btn btn-md btn-primary" type="submit">Editar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Boostrapt -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>

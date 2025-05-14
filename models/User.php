@@ -42,11 +42,17 @@ class User {
             self::getConnection()->query($sql, [$this->userId, $this->name, $this->email, $this->password, $this->rol]);
     }
 
-    public static function editUser($user, $prop, $value) {
+    public static function editProp($user, $prop, $value) {
         if(property_exists($user, $prop)) {
             $sql = "UPDATE user SET $prop = ? WHERE userId = ?";
             return self::getConnection()->query($sql, [$value, $user->__get('userId')]);
         }
+    }
+
+    public static function editUser(...$props)
+    {
+        $sql = "UPDATE user set name = ?, email = ?, rol = ? WHERE userId = ?";
+        self::getConnection()->query($sql, $props);
     }
 
     public static function deleteById($id) {

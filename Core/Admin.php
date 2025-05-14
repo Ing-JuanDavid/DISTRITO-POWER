@@ -40,6 +40,28 @@ class Admin {
         }    
     }
 
+    public static function editUser()
+    {
+        $url = '/admin/dashboard';
+
+        $inputs = getPost('userId', 'name', 'email', 'rol');
+        $inputs = Validator::inputs($inputs, $url);
+
+        Validator::email($inputs['email'], $url);
+
+        $user = User::findUserById($inputs['userId']);
+        
+        if(! $user) Response::redirect($url, 'danger', 'El usuario con ID: ' . $inputs['userId'] . ' no existe');
+
+        try { 
+                User::editUser($inputs['name'], $inputs['email'], $inputs['rol'], $inputs['userId']);    
+                Response::redirect($url, 'success', 'Usuario actualizado');
+        } catch(PDOException $e) {
+            Response::redirect($url, 'danger', 'Error al editar usuario');
+        }
+        
+    }
+
     public static function destroyUser()
     {
         $url = '/admin/dashboard';
@@ -48,7 +70,7 @@ class Admin {
         if(! User::findUserById($id)) Response::redirect($url, 'danger', 'No existe el usuario a eliminar');
 
         
-        if(User::deleteById($id)) Response::redirect($url, 'success', 'Usuario eliminado exitosamente');
+        if(User::deleteById($id)) Response::redirect($url, 'success', 'Usuario eliminado');
     }
 
     public static function addMembershipType()
@@ -70,6 +92,37 @@ class Admin {
         } catch (PDOException $e) {
             Response::redirect($url, 'danger', 'Error al crear membresia');
         }
+    }
+
+    public static function editMembershipType()
+    {
+        $url = '/admin/dashboard';
+
+        $inputs = getPost('typeId', 'name', 'duration', 'value');
+
+        $inputs = Validator::inputs($inputs, $url);
+
+        $mem = MembershipType::findById($inputs['typeId']);
+        
+        if(! $mem) Response::redirect($url, 'danger', 'La membresia con ID: ' . $inputs['typeId'] . ' no existe');
+
+        try { 
+                MembershipType::editMem($inputs['name'], $inputs['duration'], $inputs['value'], $inputs['typeId']);    
+                Response::redirect($url, 'success', 'Membresia actualizada');
+        } catch(PDOException $e) {
+            Response::redirect($url, 'danger', 'Error al editar membresia');
+        }
+        
+    }
+
+    public static function destroyMemBershipType()
+    {
+        $url = '/admin/dashboard';
+        $id = $_GET['id'] ?? null;
+        
+        if(! MembershipType::findById($id)) Response::redirect($url, 'danger', 'No existe la membresia a eliminar');
+
+        if(MembershipType::deleteById($id)) Response::redirect($url, 'success', 'Membresia eliminada');
     }
 
     public static function addPay()
@@ -105,16 +158,16 @@ class Admin {
 
     public static function takeAsist($memId) 
     {
-        $url = '/admin/pays';
+        $url = '/admin/dashboard';
         $mem = Membership::findByMemId($memId);
         
-        if(! $mem || $mem['status'] == 'vencida') Response::redirect($url, 'error', 'Accion invalida');
+        if(! $mem || $mem['status'] == 'vencida') Response::redirect($url, 'danger', 'Accion invalida');
 
         try {
             Membership::takeAsist($mem);
             Response::redirect($url, 'success', 'Asistencia registrada');
         } catch(PDOException $e) {
-            Response::redirect($url, 'error', $e->getMessage());
+            Response::redirect($url, 'danger', $e->getMessage());
         }   
 
     }

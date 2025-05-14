@@ -9,7 +9,7 @@ require BASE_PATH . 'helper/functions.php';
 $method = $_SERVER['REQUEST_METHOD'];
 
 if($method == 'POST') {
-    $_method = $_POST['_method'];
+    $_method = $_POST['_method'] ?? null;
     $method = ($method == $_method) ? $method : $_method;
 }
 

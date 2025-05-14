@@ -10,13 +10,16 @@ $router->get('/admin/pays/asistencia', base_path('controllers/admin/asistencia.p
 $router->get('/admin/dashboard', base_path('controllers/admin/index.php'));
 $router->get('/admin/pays', base_path('controllers/admin/pays.php'));
 $router->get('/dashboard', base_path('controllers/user/index.php'));
-$router->get('/admin/dashboard/destuser/', base_path('controllers/admin/destroy.php'));
+$router->get('/admin/dashboard/destuser/', base_path('controllers/admin/destroyUser.php'));
+$router->get('/admin/dashboard/destmem/', base_path('controllers/admin/destroyMem.php'));
 
 $router->post('/login', base_path('controllers/auth/logIn.php'));
 $router->post('/recover', base_path('controllers/auth/recover.php'));
 $router->post('/signup', base_path('controllers/auth/signUp.php'));
 
 $router->post('/admin/dashboard/adduser', base_path('controllers/admin/createUser.php'));
+$router->post('/admin/dashboard/edituser', base_path('controllers/admin/editUser.php'));
 $router->post('/admin/dashboard/addmem', base_path('controllers/admin/createMemT.php'));
+$router->post('/admin/dashboard/editmem', base_path('controllers/admin/editMem.php'));
 $router->post('/admin/pays/addpay', base_path('controllers/admin/createPay.php'));
 
