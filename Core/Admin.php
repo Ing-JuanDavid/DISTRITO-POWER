@@ -4,6 +4,7 @@ namespace Core;
 
 use Core\Response;
 use Core\Validator;
+use Helper\ReportPdf;
 use models\Membership;
 use models\MembershipType;
 use models\Pay;
@@ -127,7 +128,7 @@ class Admin {
 
     public static function addPay()
     {
-        $url = '/admin/pays';
+        $url = '/admin/dashboard';
 
         $inputs = getPost('userId', 'typeId');
         $inputs = Validator::inputs($inputs, $url);
@@ -170,5 +171,27 @@ class Admin {
             Response::redirect($url, 'danger', $e->getMessage());
         }   
 
+    }
+
+    public static function makeReport()
+    {
+        $url = '/admin/dashboard';
+
+        $inputs = getPost('date');
+        // $inputs = Validator::inputs($inputs, $url);
+        
+    
+        $header = ['ID', 'Usuario', 'Membresia', 'Monto', 'Fecha'];
+
+        $pays = Pay::getPaysByMonth($inputs['date']);
+        $total = Pay::getTotal($pays);
+
+        $data = $data = array_map('array_values', $pays);
+
+        $pdf = new ReportPdf();
+        $pdf->addHeader('Reporte de Pagos'); // Opcional
+        $pdf->addGeneratedDate();
+        $pdf->addPaymentTable($header, $data, $total);
+        $pdf->output();
     }
 }

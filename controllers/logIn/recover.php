@@ -12,7 +12,7 @@ $links = [
         'route' => '/login'
     ],
     [
-        'name' => 'sigUp',
+        'name' => 'signUp',
         'route' => '/signup'
     ]
 ];

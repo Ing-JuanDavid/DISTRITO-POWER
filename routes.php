@@ -21,5 +21,6 @@ $router->post('/admin/dashboard/adduser', base_path('controllers/admin/createUse
 $router->post('/admin/dashboard/edituser', base_path('controllers/admin/editUser.php'));
 $router->post('/admin/dashboard/addmem', base_path('controllers/admin/createMemT.php'));
 $router->post('/admin/dashboard/editmem', base_path('controllers/admin/editMem.php'));
-$router->post('/admin/pays/addpay', base_path('controllers/admin/createPay.php'));
+$router->post('/admin/dashboard/addpay', base_path('controllers/admin/createPay.php'));
+$router->post('/admin/dashboard/report', base_path('controllers/admin/makeReport.php'));
 

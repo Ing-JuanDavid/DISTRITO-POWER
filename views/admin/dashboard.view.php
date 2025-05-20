@@ -1,9 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php view('partials/head.php', ['title' => 'Dashboard']) ?>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrapt -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+    <!-- DataTable -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.3.0/css/dataTables.bootstrap5.css">
+    <!-- Custom css -->
+    <link rel="stylesheet" href="/styles.css">
+    <title>Dashboard</title>
+</head>
 
-<body>
+<body class="">
 
     <?php view('partials/nav.php', ['links' => $links]); ?>
 
@@ -11,6 +21,7 @@
     <div class="d-flex">
         <!-- Sidebar -->
         <nav class="bg-primary text-white pt-3" style="width: 250px; height: 100vh; position: fixed;">
+            <h5 class="center">Dashboard</h5>
             <ul class="nav flex-column">
 
                 <li class="nav-item side-item selected">
@@ -181,21 +192,38 @@
                 <!-- Sección de Pagos -->
                 <div class="tab-pane fade my-3" id="payments-tab-pane" role="tabpanel">
                     <h3>Pagos</h3>
-                    <table class="table table-striped">
+                    <table class="table table-striped" id="pays">
                         <thead>
                             <tr>
-                                <th>ID de Pago</th>
-                                <th>Usuario</th>
-                                <th>Monto</th>
+                                <th>Id pago</th>
+                                <th>Id usuario</th>
+                                <th>Nombre</th>
+                                <th>Membresia</th>
                                 <th>Fecha</th>
-                                <th>Estado</th>
+                                <th>Monto</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- Aquí se listarán los pagos -->
+                            <?php if ($pays) : ?>
+                                <?php foreach ($pays as $pay) : ?>
+                                    <tr>
+                                        <td><?= htmlspecialchars($pay["payId"]) ?></td>
+                                        <td><?= htmlspecialchars($pay["userId"]) ?></td>
+                                        <td><?= htmlspecialchars($pay["userName"]) ?></td>
+                                        <td><?= htmlspecialchars($pay["memName"]) ?></td>
+                                        <td><?= htmlspecialchars($pay["payDate"]) ?></td>
+                                        <td><?= htmlspecialchars($pay["value"]) ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
                         </tbody>
                     </table>
-                    <button class="btn btn-primary">Registrar Pago</button>
+                    
+            
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addPayModal">Registrar Pago</button>
+                        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#makeReport">Generar reporte</button>
+        
+                
                 </div>
             </div>
 
@@ -305,6 +333,74 @@
         </div>
     </div>
 
+    <!-- Add pay -->
+    <div id="addPayModal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5>Agregar pago</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <form class="" action="/admin/dashboard/addpay" method="post">
+                        <input type="hidden" name="_method" value="POST">
+
+                        <div class="mb-3">
+                            <label for="userId">Id</label>
+                            <input class="form-control" type="number" name="userId" id="userId">
+                        </div>
+
+                        <select class="form-control w-50" name="typeId" id="">
+                            <option value="" disable selected>Selecciona una membresia</option>
+                            <?php foreach ($mems as $mem): ?>
+                                <?= "<option value='" . $mem['typeId'] .  "'" . ">" . $mem['name'] . "</option>" ?>
+                            <?php endforeach; ?>
+                        </select>
+
+                        <div class="text-end">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                            <button class="btn btn-md btn-primary" type="submit">Crear</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Make report -->
+    <div id="makeReport" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5>Generar reporte</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <form class="" action="/admin/dashboard/report" method="post" target="_blank">
+                        <input type="hidden" name="_method" value="POST">
+
+                        <select class="form-control w-50" name="date" id="">
+                            <option value="<?= $payDates[0] ?>" disable selected>Selecciona un mes</option>
+                            <?php foreach ($payDates as $date): ?>
+                                <?= "<option value='" . $date .  "'" . ">" . $date . "</option>" ?>
+                            <?php endforeach; ?>
+                        </select>
+
+                        <div class="text-end">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                            <button class="btn btn-md btn-primary" type="submit">Generar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <!-- Modals edit -->
 
     <!-- Edit user -->
@@ -394,7 +490,8 @@
     </div>
 
     <!-- Boostrapt -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" 
+        integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
     <!-- Fontawesome -->
     <script src="https://kit.fontawesome.com/94b343effb.js" crossorigin="anonymous"></script>
     <!-- jquery -->

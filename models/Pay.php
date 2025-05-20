@@ -50,5 +50,41 @@ class Pay {
 
         return $members = self::getConnection()->query($sql)->fetchAll();
     }
+
+    public static function getPays()
+    {
+        $sql = 'SELECT p.payId, p.userId, p.typeId, p.payDate, p.value, u.name AS userName, m.name AS memName 
+                FROM pay p 
+                JOIN user u ON p.userId = u.userId 
+                JOIN membershipType m ON p.typeId = m.typeId';
+        
+        return self::getConnection()->query($sql)->fetchAll();
+    }
+
+    public static function getMonths($pays) {
+    $months = [];
+    foreach($pays as $pay) {
+        $date = strtotime($pay['payDate']);
+        $month = date('F y', $date);
+
+        if (!in_array($month, $months)) {
+            $months[] = $month;
+        }
+    }
+    return $months;
+    }
+
+    public static function getPaysByMonth($month) {
+        $sql = "SELECT * FROM pay WHERE DATE_FORMAT(payDate, '%M %y') = ?";
+        return self::getConnection()->query($sql, [$month])->fetchAll();
+    }
+
+    public static function getTotal($pays) {
+        $total = 0;
+        foreach($pays as $pay) {
+            $total += $pay['value'];
+        }
+        return $total;
+    }
 }
 

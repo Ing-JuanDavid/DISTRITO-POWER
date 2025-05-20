@@ -1,7 +1,7 @@
 let userTable, memTable, memberTable
 
 
-// Se valido solo cuando se usa AJAX
+// Se valida solo cuando se usa AJAX
 // let userTableIsInicialized= false
 // let memTableIsInicialized= false
 
@@ -76,6 +76,38 @@ const memberTableConfig = {
     },
 };
 
+const paysTableConfig = {
+    columnDefs: [
+        {className: "center", targets: [0, 1, 4, 5]},//{width: '5%', targets: [0]}
+    ],
+    lengthMenu: [5, 10, 25],
+    // spageLength: 10,
+    destroy: true,
+    language: {
+        decimal: ",",
+        thousands: ".",
+        emptyTable: "No hay datos todavia",
+        info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
+        infoEmpty: "Mostrando 0 a 0 de 0 registros",
+        infoFiltered: "(filtrado de _MAX_ registros totales)",
+        lengthMenu: "Mostrar _MENU_ registros por página",
+        loadingRecords: "Cargando...",
+        processing: "Procesando...",
+        search: "Buscar:",
+        zeroRecords: "No se encontraron resultados",
+        paginate: {
+        first: "Primero",
+        last: "Último",
+        next: "Siguiente",
+        previous: "Anterior",
+        },
+        aria: {
+        sortAscending: ": activar para ordenar ascendente",
+        sortDescending: ": activar para ordenar descendente",
+        },
+    },
+};
+
 const initDataTable = ()=> {
     // if(userTableIsInicialized) {
     //     userTable.destroy()
@@ -88,6 +120,7 @@ const initDataTable = ()=> {
     userTable = $('#users').DataTable(config);
     memTable = $('#memberships').DataTable(config)
     memberTable = $('#members').DataTable(memberTableConfig)
+    paysTable = $('#pays').DataTable(paysTableConfig)
 
     // userTableIsInicialized = true
     // memTableIsInicialized = true

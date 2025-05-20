@@ -1,6 +1,5 @@
 <?php
 use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
 
 require_once __DIR__."/../libs/PHPMailer/Exception.php";
 require_once __DIR__.'/../libs/PHPMailer/PHPMailer.php';
@@ -11,7 +10,7 @@ class Mailer {
     public static function sendMail($email, $name, $subj, $msj) {
         $mail = new PHPMailer(true);
             //Credentials
-            $credentials = require_once __DIR__."/../config/credentials.php";    
+            $credentials = require __DIR__.'/../config/credentials.php';    
 
             // Config SMTP
             //$mail->SMTPDebug = 2; // Niveles de depuración: 1 para errores, 2 para información detallada
