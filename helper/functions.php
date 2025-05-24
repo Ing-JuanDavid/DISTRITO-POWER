@@ -16,20 +16,7 @@ use function PHPSTORM_META\map;
     {
         http_response_code($code);
         
-        $links = [
-            [
-                'name' => 'Inicio',
-                'route' => '/'
-            ],
-            [
-                'name' => 'LogIn',
-                'route' => '/login'
-            ],
-            [
-                'name' => 'sigUp',
-                'route' => '/signup'
-            ]
-    ];
+        $links = require base_path("links.php");
 
         view("errores/$code.php", [
             'links' => $links
@@ -37,16 +24,6 @@ use function PHPSTORM_META\map;
         die();
     }
 
-    function requireRole($role) 
-    {
-
-        if(session_status() == PHP_SESSION_NONE) session_start();
-
-        if (! isset($_SESSION['rol']) || $_SESSION['rol'] !== $role) {
-            abort(403);
-        }
-        
-    }
 
     function getPost(...$inputs)
     {

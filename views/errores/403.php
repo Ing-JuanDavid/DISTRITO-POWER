@@ -1,7 +1,7 @@
 <?php view('partials/head.php', ['title' => '403']); ?>
 <?php view('partials/nav.php', ['links' => $links]); ?>
-<h2>Usted no tiene persmisos para acceder a esta pagina</h2>
-<h4>Por favor, <a href='/login'>inicie sesion</a></h4>
+<h2>Usted no tiene persmisos para acceder a esta pagina.</h2>
+
 
 <!-- Boostrapt -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" 

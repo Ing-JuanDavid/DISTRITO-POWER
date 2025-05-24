@@ -1,5 +1,4 @@
 <?php 
-requireRole('user');
 
 $links = require base_path('links.php');
 

@@ -4,8 +4,6 @@ use models\MembershipType;
 use models\Pay;
 use models\User;
 
-requireRole('admin');
-
 $links = require base_path('links.php');
 
 $pays = Pay::getPays();
