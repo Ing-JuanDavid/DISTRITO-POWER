@@ -2,12 +2,13 @@
 
 namespace Core\Middleware;
 
-class Auth
+class Token
 {
     public function handle()
     {
-        if (! isset($_SESSION['user']) && ! isset($_COOKIE['token'])) {
+        if (! isset($_COOKIE['token']) || isset($_SESSION['user']) || isset($_SESSION['rol'])) {
             abort(403);
         }
+
     }
 }

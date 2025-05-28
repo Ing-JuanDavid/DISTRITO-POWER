@@ -103,13 +103,29 @@ class Auth {
         User::editProp($user, "token", $hashToken);
     }
 
+    public static function recoverSession() 
+    {
+        if(isset($_COOKIE['token'])) {
+            $user = User::findByToken(hash("md5", $_COOKIE['token']));
+            if($user) {
+                // Show confirmation view
+                view('logIn/confirmSession.view.php', [
+                    'user' => $user
+                ]);
+                die();
+            }
+        }
+        abort(403);
+    }
+
     public static function logOut() 
     {
         session_start();
         $_SESSION = [];
         session_destroy();
-        $_COOKIE = [];
+        $params = session_get_cookie_params();
         setcookie("token", "", time() - 3600, "/", false, true);
+        setcookie('PHPSESSID', '', time()-3600, $params["path"], $params["domain"], $params["secure"], $params["httponly"]);
         Response::redirect('/');
     }
 
@@ -118,5 +134,6 @@ class Auth {
             $caracteres = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_=+';
             return substr(str_shuffle(str_repeat($caracteres, ceil($length / strlen($caracteres)))), 0, $length);
     }
+
 }
 

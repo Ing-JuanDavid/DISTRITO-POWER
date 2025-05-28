@@ -24,6 +24,15 @@ use function PHPSTORM_META\map;
         die();
     }
 
+    function start_session($user, $rol = "user") 
+    {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+        $_SESSION["user"] = $user;
+        $_SESSION["rol"] = $rol;
+    }
+
 
     function getPost(...$inputs)
     {
@@ -54,6 +63,7 @@ use function PHPSTORM_META\map;
     //     }
     // }
 
+    
     function base_path($path) {
         return BASE_PATH . $path;
     }
@@ -62,5 +72,4 @@ use function PHPSTORM_META\map;
         extract($attributes);
         require base_path("views/$view");
     }
-
 

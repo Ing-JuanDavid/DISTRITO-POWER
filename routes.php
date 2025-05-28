@@ -16,6 +16,7 @@ $router->get('/admin/dashboard/destmem/', base_path('controllers/admin/destroyMe
 $router->post('/login', base_path('controllers/auth/logIn.php'))->only('guest');
 $router->post('/recover', base_path('controllers/auth/recover.php'))->only('guest');
 $router->post('/signup', base_path('controllers/auth/signUp.php'))->only('guest');
+$router->post('/recoversession', base_path('controllers/auth/recoverSession.php'))->only('token');// This route is used to recover the session after a user logs in
 
 $router->post('/admin/dashboard/adduser', base_path('controllers/admin/createUser.php'))->only('admin');
 $router->post('/admin/dashboard/edituser', base_path('controllers/admin/editUser.php'))->only('admin');

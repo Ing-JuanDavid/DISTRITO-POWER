@@ -5,6 +5,7 @@ namespace Core;
 use Core\Middleware\Admin;
 use Core\Middleware\Auth;
 use Core\Middleware\Guest;
+use Core\Middleware\Token;
 use Core\Middleware\User;
 
 class Middleware
@@ -13,6 +14,7 @@ class Middleware
         'guest' => Guest::class,
         'auth' => Auth::class,
         'admin' => Admin::class,
-        'user' => User::class
+        'user' => User::class,
+        'token' => Token::class,
     ];
 }
