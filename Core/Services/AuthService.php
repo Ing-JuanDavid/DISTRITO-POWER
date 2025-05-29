@@ -1,6 +1,6 @@
 <?php
 
-namespace Core;
+namespace Core\Services;
 
 use Core\Validator;
 use Core\Response;
@@ -10,7 +10,7 @@ use PDOException;
 require base_path('helper/mailer.php');
 
 
-class Auth {
+class AuthService {
     
     public static function logIn() 
     {
@@ -115,7 +115,6 @@ class Auth {
                 die();
             }
         }
-        abort(403);
     }
 
     public static function logOut() 

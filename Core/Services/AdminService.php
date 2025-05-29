@@ -1,6 +1,6 @@
 <?php
 
-namespace Core;
+namespace Core\Services;
 
 use Core\Response;
 use Core\Validator;
@@ -11,7 +11,7 @@ use models\Pay;
 use models\User;
 use PDOException;
 
-class Admin {
+class AdminService {
 
     public static function addUser() 
     {

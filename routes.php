@@ -1,6 +1,6 @@
 <?php
 
-$router->get('/', base_path('controllers/home.php'));
+$router->get('/', base_path('controllers/home.php'))->only('anyone');
 $router->get('/login', base_path('controllers/logIn/logIn.php'))->only('guest');
 $router->get('/signup', base_path('controllers/logIn/signUp.php'))->only('guest');
 $router->get('/recover', base_path('controllers/logIn/recover.php'))->only('guest');

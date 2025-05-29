@@ -1,14 +1,15 @@
 <?php
 
 namespace Core\Middleware;
-use Core\Auth;
+use Core\Services\AuthService;
 
 class Admin
 {
     public function handle()
     {
         if (! isset($_SESSION['user']) || ! isset($_SESSION['rol'])) {
-            Auth::recoverSession();
+            AuthService::recoverSession();
+            abort(403);
         }
 
         if ($_SESSION['rol'] !== 'admin') {

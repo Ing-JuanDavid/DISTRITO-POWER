@@ -1,5 +1,5 @@
 <?php
 
-use Core\Auth;
+use Core\Services\AuthService;
 
-Auth::logIn();
+AuthService::logIn();

@@ -1,5 +1,5 @@
 <?php
 
-use Core\Admin;
+use Core\Services\AdminService;
 
-Admin::editMembershipType();
+AdminService::editMembershipType();

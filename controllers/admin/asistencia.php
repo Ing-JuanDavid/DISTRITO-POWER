@@ -1,5 +1,5 @@
 <?php
 
-use Core\Admin;
+use Core\Services\AdminService;
 
-Admin::takeAsist($_GET['id']);
+AdminService::takeAsist($_GET['id']);

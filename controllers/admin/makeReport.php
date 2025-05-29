@@ -1,7 +1,5 @@
 <?php
 
-use Core\Admin;
+use Core\Services\AdminService;
 
-requireRole('admin');
-
-Admin::makeReport();
+AdminService::makeReport();
