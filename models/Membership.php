@@ -46,10 +46,31 @@ class Membership {
         return self::getConnection()->query($sql, [$userId])->fetch();
     }
 
+    public static function findByEmail($email)
+    {
+        $sql = 'SELECT m.memId AS mem_id, u.name AS user_name, mt.name AS membership_type, m.daysRe AS days_res, m.status, p.payDate AS pay_date
+                FROM user u
+                JOIN membership m ON u.userId = m.userId
+                JOIN membershipType mt ON m.typeId = mt.typeId
+                JOIN pay p ON u.userId = p.userId where u.email = ?';
+
+        return self::getConnection()->query($sql, [$email])->fetch();
+    }
+
     public static function findByMemId($memId)
     {
         $sql = 'SELECT * FROM membership WHERE memId = ?';
         return self::getConnection()->query($sql, [$memId])->fetch();
+    }
+
+    public static function getMembers()
+    {
+        $sql = 'SELECT m.memId AS mem_id, u.name AS user_name, mt.name AS membership_type, m.daysRe AS days_res, m.status
+        FROM user u
+        JOIN membership m ON u.userId = m.userId
+        JOIN membershipType mt ON m.typeId = mt.typeId';
+
+        return self::getConnection()->query($sql)->fetchAll();
     }
 
     public static function deleteByUserId($userId)
@@ -70,5 +91,11 @@ class Membership {
         
         $sql = 'INSERT INTO asist (userId, asistDate) VALUES (?, CURRENT_DATE)';
         $conn->query($sql, [$mem['userId']]);
+    }
+
+    public static function getAsistsByUSerId($userId)
+    {
+        $sql = 'SELECT * FROM asist WHERE userId = ? ORDER BY asistDate DESC';
+        return self::getConnection()->query($sql, [$userId])->fetchAll();
     }
 }

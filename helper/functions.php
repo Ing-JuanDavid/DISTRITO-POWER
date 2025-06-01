@@ -39,6 +39,15 @@ use function PHPSTORM_META\map;
         return array_combine($inputs, array_map(fn($i) => $_POST[$i] ?? null, $inputs));
     }
 
+function stringToDate($arr, $dateProp)
+{
+    foreach ($arr as $key => $value) {
+        $timestamp = strtotime($value[$dateProp]);
+        $arr[$key][$dateProp] = date("d-M-Y", $timestamp);
+    }
+    return $arr;
+}
+
 
     // function recoverSession() 
     // {

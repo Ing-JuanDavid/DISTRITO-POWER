@@ -3,16 +3,26 @@
 namespace Core\Middleware;
 
 use Core\Services\AuthService;
+use models\User as ModelsUser;
 
 class User
 {
     public function handle()
     {
-        if(! isset($_SESSION['user']) || ! isset($_SESSION['rol'])) {
-            AuthService::recoverSession();
+
+        $user = $_SESSION['user'] ?? null;
+
+        if($user) {
+            if(! ModelsUser::findUserByEmail($user)) AuthService::logOut();
         }
 
-        if ($_SESSION['rol'] !== 'user') {
+
+        if(! $user) {
+            if (! AuthService::recoverSession()) abort(403);
+        }
+        
+    
+        if (! isset($_SESSION['rol']) || $_SESSION['rol'] !== 'user') {
             abort(403);
         }
     }

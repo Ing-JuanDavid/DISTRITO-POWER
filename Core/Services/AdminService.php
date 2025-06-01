@@ -128,7 +128,8 @@ class AdminService {
 
     public static function addPay()
     {
-        $url = '/admin/dashboard';
+        // $url = '/admin/dashboard';
+        $url = '/dashboard';
 
         $inputs = getPost('userId', 'typeId');
         $inputs = Validator::inputs($inputs, $url);

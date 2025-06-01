@@ -1,0 +1,51 @@
+body {
+    background-color: #f4f6f9; /* Gris claro, suave y profesional */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 2rem;
+}
+
+.membership {
+    box-sizing: border-box;
+    width: 15rem;
+    border: 2px solid #48e; 
+    border-radius: 10px;
+    padding: 10px 10px 20px;
+    color: #48e;
+    
+}
+
+.membership h5 {
+    border-bottom: 2px solid #48e;
+    padding-bottom: 5px;
+}
+
+p {
+    margin: 0;
+    padding: 0;
+    font-size: 1.1em;
+    color: #48ed;
+}
+
+.membership span {
+    display: inline-block;
+    font-size: 1.7em;
+    font-weight: bold;
+}
+
+#membership-btn {
+    margin: 10px 0;
+    background: #48e;
+    color: #fefefe;
+    border-radius: 50px;
+    letter-spacing: 2px;
+    font-weight: bold;
+
+}

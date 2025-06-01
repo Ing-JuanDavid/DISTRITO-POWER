@@ -41,15 +41,6 @@ class Pay {
         return self::getConnection()->query($sql, [$this->userId, $this->typeId]);
     }
 
-    public static function getMembers()
-    {
-        $sql = 'SELECT m.memId AS mem_id, u.name AS user_name, mt.name AS membership_type, m.daysRe AS days_res, m.status
-        FROM user u
-        JOIN membership m ON u.userId = m.userId
-        JOIN membershipType mt ON m.typeId = mt.typeId';
-
-        return $members = self::getConnection()->query($sql)->fetchAll();
-    }
 
     public static function getPays()
     {
@@ -59,6 +50,12 @@ class Pay {
                 JOIN membershipType m ON p.typeId = m.typeId';
         
         return self::getConnection()->query($sql)->fetchAll();
+    }
+
+    public static function getPaysByUserId($userId)
+    {
+        $sql = 'SELECT * from pay WHERE userId = ? ORDER BY payDate DESC'; 
+        return self::getConnection()->query($sql, [$userId])->fetchAll();
     }
 
     public static function getMonths($pays) {

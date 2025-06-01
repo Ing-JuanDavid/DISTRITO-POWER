@@ -9,11 +9,11 @@
     <!-- DataTable -->
     <link rel="stylesheet" href="https://cdn.datatables.net/2.3.0/css/dataTables.bootstrap5.css">
     <!-- Custom css -->
-    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/styles/adminDash.css">
     <title>Dashboard</title>
 </head>
 
-<body class="">
+<body>
 
     <?php view('partials/nav.php', ['links' => $links]); ?>
 
@@ -344,7 +344,7 @@
                 </div>
 
                 <div class="modal-body">
-                    <form class="" action="/admin/dashboard/addpay" method="post">
+                    <form class="" action="/membership/create" method="post">
                         <input type="hidden" name="_method" value="POST">
 
                         <div class="mb-3">

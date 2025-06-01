@@ -1,0 +1,57 @@
+
+/* user */
+/* Fondo general del body */
+body {
+    background-color: #f4f6f9; /* Gris claro, suave y profesional */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Card general */
+.panel {
+    padding: 1.5rem;
+    border-radius: 20px;
+    background-color: #fff;
+    border: none;
+    transition: all 0.2s ease-in-out;
+
+}
+
+.panel:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Card de bienvenida mejorado */
+.welcome-panel {
+    background: linear-gradient(135deg, #00c6ff, #0072ff); /* Azul degradado */
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(0, 114, 255, 0.3);
+}
+
+
+/* Lista de acciones con mejor visibilidad */
+.action-list li {
+    margin-bottom: 8px;
+}
+
+.action-list a {
+    color: #fff;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.action-list a:hover {
+    text-decoration: none;
+    color: #e0e0e0;
+}
+
+/* Títulos de tarjetas */
+.stat-card h5 {
+    margin-bottom: 12px;
+    font-weight: 600;
+    color: #333;
+}
+
+
+
+

@@ -8,8 +8,7 @@ class Admin
     public function handle()
     {
         if (! isset($_SESSION['user']) || ! isset($_SESSION['rol'])) {
-            AuthService::recoverSession();
-            abort(403);
+            if(! AuthService::recoverSession()) abort(403);
         }
 
         if ($_SESSION['rol'] !== 'admin') {

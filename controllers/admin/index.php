@@ -1,5 +1,6 @@
 <?php 
 use Core\Response;
+use models\Membership;
 use models\MembershipType;
 use models\Pay;
 use models\User;
@@ -14,7 +15,7 @@ view('admin/dashboard.view.php',[
     'links' => $links,
     'users' => User::getUsers(),
     'mems' => MembershipType::getMems(),
-    'members' => Pay::getMembers(),
+    'members' => Membership::getMembers(),
     'pays' => $pays,
     'payDates' => $payDates,
     'alert' => Response::getAlert()

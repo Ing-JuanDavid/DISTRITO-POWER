@@ -107,15 +107,20 @@ class AuthService {
     {
         if(isset($_COOKIE['token'])) {
             $user = User::findByToken(hash("md5", $_COOKIE['token']));
-            if($user) {
-                // Show confirmation view
-                view('logIn/confirmSession.view.php', [
-                    'user' => $user
-                ]);
-                die();
+            
+            if(! $user) {
+                abort(403);
             }
+
+            // Show confirmation view
+            view('logIn/confirmSession.view.php', [
+                'user' => $user
+            ]);
+            die();
         }
+        return false;
     }
+
 
     public static function logOut() 
     {
@@ -125,7 +130,7 @@ class AuthService {
         $params = session_get_cookie_params();
         setcookie("token", "", time() - 3600, "/", false, true);
         setcookie('PHPSESSID', '', time()-3600, $params["path"], $params["domain"], $params["secure"], $params["httponly"]);
-        Response::redirect('/');
+        Response::redirect('/login');
     }
 
 

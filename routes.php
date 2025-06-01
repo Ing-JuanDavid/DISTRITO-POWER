@@ -10,6 +10,9 @@ $router->get('/admin/pays/asistencia', base_path('controllers/admin/asistencia.p
 
 $router->get('/admin/dashboard', base_path('controllers/admin/index.php'))->only('admin');
 $router->get('/dashboard', base_path('controllers/user/index.php'))->only('user');
+$router->get('/memberships', base_path('controllers/membership/index.php'))->only('anyone');
+
+
 $router->get('/admin/dashboard/destuser/', base_path('controllers/admin/destroyUser.php'))->only('admin');
 $router->get('/admin/dashboard/destmem/', base_path('controllers/admin/destroyMem.php'))->only('admin');
 
@@ -22,6 +25,8 @@ $router->post('/admin/dashboard/adduser', base_path('controllers/admin/createUse
 $router->post('/admin/dashboard/edituser', base_path('controllers/admin/editUser.php'))->only('admin');
 $router->post('/admin/dashboard/addmem', base_path('controllers/admin/createMemT.php'))->only('admin');
 $router->post('/admin/dashboard/editmem', base_path('controllers/admin/editMem.php'))->only('admin');
-$router->post('/admin/dashboard/addpay', base_path('controllers/admin/createPay.php'))->only('admin');
+
+$router->post('/membership/create', base_path('controllers/membership/create.php'))->only('auth');
+
 $router->post('/admin/dashboard/report', base_path('controllers/admin/makeReport.php'))->only('admin');
 
