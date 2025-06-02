@@ -10,7 +10,7 @@ class Anyone
     {
 
         if(!isset($_SESSION['user'])) {
-            AuthService::recoverSession();
+            AuthService::chekKeepSession();
         }
     }
 }

@@ -1,12 +1,5 @@
 <?php
 
-use Core\Response;
+use Core\Services\AuthService;
 
-
-$inputs = getPost('email', 'rol');
-
-if (! isset($inputs['email']) || ! isset($inputs['rol'])) abort(400);
-
-start_session($inputs['email'], $inputs['rol']);
-
-Response::redirectToDashboard();
+AuthService::recoverSession();

@@ -103,7 +103,7 @@ class AuthService {
         User::editProp($user, "token", $hashToken);
     }
 
-    public static function recoverSession() 
+    public static function chekKeepSession() 
     {
         if(isset($_COOKIE['token'])) {
             $user = User::findByToken(hash("md5", $_COOKIE['token']));
@@ -112,15 +112,22 @@ class AuthService {
                 abort(403);
             }
 
-            // Show confirmation view
-            view('logIn/confirmSession.view.php', [
-                'user' => $user
-            ]);
-            die();
+            $_SESSION['temp_user'] = $user;
+            Response::redirect('/keepSession');
         }
         return false;
     }
 
+    public static function recoverSession()
+    {
+        $url = '/keepSession';
+        $inputs = getPost('email', 'rol');
+        Validator::inputs($inputs, $url);
+        Validator::email($inputs['email'], $url);
+
+        start_session($inputs['email'], $inputs['rol']);
+        Response::redirectToDashboard();
+    }
 
     public static function logOut() 
     {

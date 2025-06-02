@@ -6,7 +6,10 @@
         <h5 class="">Confirmar Sesión</h5>
     </div>
     <div class="card-body">
-        <p>Hola <?= $user->__get('name'); ?>, deseas permanecer esta sesion?</p>
+        <p>Hola <?= $user->__get('name'); ?>, deseas permanecer en esta sesion?</p>
+        <?php if($alert): ?>
+            <div class="alert alert-<?= $alert['type']; ?>"><?= $alert['body']; ?></div>
+        <?php endif; ?>
     </div>
     <div class="card-footer">
         <form class="m-0" action="/recoversession" method="post">

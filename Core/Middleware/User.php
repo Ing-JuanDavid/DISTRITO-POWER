@@ -18,7 +18,7 @@ class User
 
 
         if(! $user) {
-            if (! AuthService::recoverSession()) abort(403);
+            if (! AuthService::chekKeepSession()) abort(403);
         }
         
     
