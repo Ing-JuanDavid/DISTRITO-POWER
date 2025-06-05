@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php view('partials/head.php', ['title' => 'Registro']) ?>
+<?php view('partials/head.php', ['title' => 'Registro', 'style' => 'login.css']) ?>
 
 <body class="overflow-hidden">
     

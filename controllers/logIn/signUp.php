@@ -2,20 +2,7 @@
 
 use Core\Response;
 
-$links = [
-    [
-        'name' => 'Inicio',
-        'route' => '/'
-    ],
-    [
-        'name' => 'LogIn',
-        'route' => '/login'
-    ],
-    [
-        'name' => 'signUp',
-        'route' => '/signup'
-    ]
-];
+$links = require base_path('links.php');
 
 view('logIn/signUp.view.php', [
     'alert' => Response::getAlert(),

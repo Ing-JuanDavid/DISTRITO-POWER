@@ -24,13 +24,14 @@ use function PHPSTORM_META\map;
         die();
     }
 
-    function start_session($user, $rol = "user") 
+    function start_session($user, $rol = "user", $userId) 
     {
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
         $_SESSION["user"] = $user;
         $_SESSION["rol"] = $rol;
+        $_SESSION["userId"] = $userId;
     }
 
 
@@ -39,39 +40,23 @@ use function PHPSTORM_META\map;
         return array_combine($inputs, array_map(fn($i) => $_POST[$i] ?? null, $inputs));
     }
 
-function stringToDate($arr, $dateProp)
-{
-    foreach ($arr as $key => $value) {
-        $timestamp = strtotime($value[$dateProp]);
-        $arr[$key][$dateProp] = date("d-M-Y", $timestamp);
+    function getRole()
+    {
+        if(session_status()===PHP_SESSION_NONE)
+        {
+            session_start();
+        }
+        return $_SESSION['rol'] ?? null;
     }
-    return $arr;
-}
 
-
-    // function recoverSession() 
-    // {
-    //     session_start();
-    //     $user = $_SESSION["user"] ?? null;
-    //     $token = $_COOKIE["token"] ?? null;
-
-    //     if(!$user){
-    //         if($token) {
-    //             $token = hash("md5", $token);
-    //             $user = User::findByToken($conn, $token);
-    //             if($user) {
-    //                 $_SESSION["user"] = $user->__get("email");
-    //                 $_SESSION["rol"] = $user->__get("rol");
-    //             }
-    //         } else {
-    //             echo 
-    //             "<h2>Usted no tiene acceso</h2>
-    //             <p>Por favor inicie <a href='../views/logIn.php'>sesion</a></p>";
-    //             exit;
-    //         }
-    //     }
-    // }
-
+    function stringToDate($arr, $dateProp)
+    {
+        foreach ($arr as $key => $value) {
+            $timestamp = strtotime($value[$dateProp]);
+            $arr[$key][$dateProp] = date("d-M-Y", $timestamp);
+        }
+        return $arr;
+    }
     
     function base_path($path) {
         return BASE_PATH . $path;

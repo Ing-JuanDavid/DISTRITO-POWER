@@ -8,8 +8,9 @@ $links;
 if(! in_array($rol, ['user' , 'admin'])) {
     $links = [
         ['name' => 'Inicio', 'route' => '/'],
+        ['name' => 'Planes', 'route' => '/memberships'],
         ['name' => 'LogIn', 'route' => '/login'],
-        ['name' => 'signUp', 'route' => '/signup']
+        ['name' => 'SignUp', 'route' => '/signup'],
     ];
 }
 

@@ -1,51 +1,75 @@
 body {
-    background-color: #f4f6f9; /* Gris claro, suave y profesional */
+    background: linear-gradient(to right, #f4f6f9, #e3ecf3);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
 }
 
 .flex-container {
     display: flex;
-    flex-direction: row;
-    justify-content: center;
     flex-wrap: wrap;
-    align-items: center;
+    justify-content: center;
     gap: 2rem;
+    padding: 2rem 0;
 }
 
 .membership {
-    box-sizing: border-box;
-    width: 15rem;
-    border: 2px solid #48e; 
+    width: 18rem;
+    background: #ffffff;
+    border: 1px solid #ddd;
     border-radius: 10px;
-    padding: 10px 10px 20px;
-    color: #48e;
-    
+    padding: 1.5rem;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.2s ease;
 }
 
-.membership h5 {
-    border-bottom: 2px solid #48e;
-    padding-bottom: 5px;
+.membership:hover {
+    box-shadow: 0 10px 18px rgba(0, 0, 0, 0.2);
 }
 
-p {
-    margin: 0;
-    padding: 0;
-    font-size: 1.1em;
-    color: #48ed;
+.membership h4 {
+    color: #0dcaf0;
+    margin-bottom: 0.5rem;
+}
+
+.membership p {
+    margin: 0.25rem 0;
+    font-size: 1rem;
+    color: #555;
 }
 
 .membership span {
-    display: inline-block;
-    font-size: 1.7em;
+    font-size: 1.6rem;
     font-weight: bold;
+    color: #333;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.membership ul {
+    padding-left: 1.2rem;
+    margin-top: 0.5rem;
+    color: #666;
+    font-size: 0.95rem;
 }
 
 #membership-btn {
-    margin: 10px 0;
-    background: #48e;
-    color: #fefefe;
-    border-radius: 50px;
-    letter-spacing: 2px;
-    font-weight: bold;
+    display: inline-block;
+    background-color: #0dcaf0;
+    color: #fff;
+    font-weight: 600;
+    border: none;
+    padding: 0.6rem 1rem;
+    border-radius: 30px;
+    width: 100%;
+    margin-top: 1rem;
+    transition: background-color 0.3s ease;
+}
 
+#membership-btn:hover {
+    background-color: #02b0d3;
+    cursor: pointer;
+}
+
+footer a:hover {
+    color: #0dcaf0 !important;
 }

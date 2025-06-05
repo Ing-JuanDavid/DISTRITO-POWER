@@ -9,14 +9,11 @@ class Response {
         
         switch ($_SESSION["rol"]) {
             case 'admin':
-                header('Location: /admin/dashboard');
-                die();
+                Response::redirect('/admin/dashboard');
             case 'user':
-                header('Location: /dashboard');
-                die();
+                Response::redirect('/dashboard');
             default:
-                header('Location: /');
-                die();
+                Response::redirect('/logout');
         }
     }
 

@@ -1,4 +1,7 @@
 <?php
 use Core\Services\AdminService;
+use Core\Services\UserService;
 
-AdminService::addPay();
+if(getRole()=='admin') AdminService::addPay();
+
+UserService::addPay();

@@ -2,31 +2,34 @@
 <html lang="en">
 
 
-<?php view('partials/head.php', [
-    'title' => 'Membresias',
-    'style' => 'memberships.css',
-]); ?>
+<?php view('partials/head.php', ['title' => 'Planes', 'style' => 'memberships.css',]); ?>
 
 
-<body>
+<body class="min-vh-100 d-flex flex-column">
     <?php view('partials/nav.php', ['links' => $links]); ?>
-    <main class="container my-3">
-        <h4>Planes disponibles</h4>
-        <div class="flex-container">
+    <div class="container flex-grow-1">
+        <h3 class="text-center mt-3">
+            Planes disponibles en DISTRITO<span class="text-info">POWER</span>
+        </h3>
+        <p class="text-center text-muted">
+            No esperes a mañana, tu mejor versión empieza hoy
+        </p>
+        
+        <div class="flex-container py-4">
             <?php foreach ($memberships as $membership) : ?>
                 <div class="membership">
-                    <h5><?= $membership['name'] ?></h5>
+                    <h4><?= $membership['name'] ?></h4>
                     <p>Desde</p>
                     <span>$<?= number_format($membership['value'], 0) ?></span>
                     <p>Duración</p>
                     <span><?= $membership['duration'] ?> días</span>
                     <form action="/membership/create" method="post">
                         <input type="hidden" name="_method" value="POST">
-                        <input type="hidden" name="userId" value="<?=$_GET['id']?>">
+                        <input type="hidden" name="userId" value="<?= $_GET['id'] ?? null ?>">
                         <input type="hidden" name="typeId" value="<?= $membership['typeId'] ?>">
                         <button type="submit" id="membership-btn" class="btn w-100">COMPRAR</button>
                     </form>
-        
+
                     <p>Incluye:</p>
                     <ul>
                         <li>Todas las areas del gym</li>
@@ -36,7 +39,10 @@
                 </div>
             <?php endforeach; ?>
         </div>
-    </main>
+
+    </div>
+
+    <?php view('partials/footer.php') ?>
 
 </body>
 

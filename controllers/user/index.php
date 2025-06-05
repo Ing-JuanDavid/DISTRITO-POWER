@@ -7,9 +7,9 @@ use models\User;
 
 $links = require base_path('links.php');
 
-$user = User::findUserByEmail($_SESSION['user'] ?? null);
-$asists = Membership::getAsistsByUSerId($user->__get('userId'));
-$pays = Pay::getPaysByUserId($user->__get('userId'));
+$user = User::findUserById($_SESSION['userId'] ?? null);
+$asists = Membership::getAsistsByUSerId($_SESSION['userId'] ?? null);
+$pays = Pay::getPaysByUserId($_SESSION['userId'] ?? null);
 
 
 view('user/dashboard.php',  [

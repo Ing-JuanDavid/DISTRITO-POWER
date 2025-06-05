@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php view('partials/head.php', ['title' => 'Recuperar']) ?>
+<?php view('partials/head.php', ['title' => 'Recuperar', 'style' => 'login.css']) ?>
 
 <body class="overflow-hidden">
     

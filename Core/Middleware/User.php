@@ -11,9 +11,10 @@ class User
     {
 
         $user = $_SESSION['user'] ?? null;
+        $userId = $_SESSION['userId'] ?? null;
 
         if($user) {
-            if(! ModelsUser::findUserByEmail($user)) AuthService::logOut();
+            if(! ModelsUser::findUserByEmail($user) || ! ModelsUser::findUserById($userId)) AuthService::logOut();
         }
 
 

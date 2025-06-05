@@ -33,6 +33,16 @@ class Validator {
             Response::redirect($url, 'danger', 'Rol invalido');
         }
     }
+
+    public static function user($userId, $url)
+    {
+        $id = $_SESSION['userId'] ?? null;
+
+        if(! $id) Response::redirect('/login', 'info', 'Primero debes iniciar sesion');
+
+        if($id != $userId )  Response::redirect($url, 'danger', 'Accion no autorizada');
+        
+    }
 }
 
 

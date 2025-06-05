@@ -128,12 +128,12 @@ class AdminService {
 
     public static function addPay()
     {
-        // $url = '/admin/dashboard';
-        $url = '/dashboard';
+        $url = '/admin/dashboard';
 
         $inputs = getPost('userId', 'typeId');
-        $inputs = Validator::inputs($inputs, $url);
 
+        $inputs= Validator::inputs($inputs, $url);        
+        
 
             if(! User::findUserById($inputs['userId'])) Response::redirect($url, 'danger', 'Usuario no encontrado');
 

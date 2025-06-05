@@ -16,6 +16,7 @@
             <input type="hidden" name="_method" value="POST">
             <input type="hidden" name="email" value=<?= $user->__get('email'); ?>>
             <input type="hidden" name="rol" value=<?= $user->__get('rol'); ?>>
+            <input type="hidden" name="userId" value=<?= $user->__get('userId'); ?>>
             <div class="text-end">
                 <button type="submit" class="btn btn-sm btn-primary">Si, continuar</button>
                 <a href="/logout" class="btn btn-sm btn-secondary">No, salir</a>
