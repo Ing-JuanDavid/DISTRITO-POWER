@@ -54,7 +54,10 @@ class Pay {
 
     public static function getPaysByUserId($userId)
     {
-        $sql = 'SELECT * from pay WHERE userId = ? ORDER BY payDate DESC'; 
+        $sql = 'SELECT p.payId AS pay_id, mt.name AS mem_name, p.value, p.payDate AS pay_date  
+        FROM pay p
+        JOIN membershipType mt ON p.typeId = mt.typeId 
+        WHERE p.userId = ? ORDER BY pay_Date DESC'; 
         return self::getConnection()->query($sql, [$userId])->fetchAll();
     }
 

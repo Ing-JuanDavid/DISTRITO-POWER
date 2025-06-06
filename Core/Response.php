@@ -11,7 +11,7 @@ class Response {
             case 'admin':
                 Response::redirect('/admin/dashboard');
             case 'user':
-                Response::redirect('/dashboard');
+                Response::redirect('/user/dashboard');
             default:
                 Response::redirect('/logout');
         }

@@ -12,7 +12,7 @@ $router->get('/keepSession', base_path('controllers/logIn/keepSession.php'))->on
 
 // Users
 $router->get('/admin/dashboard', base_path('controllers/admin/index.php'))->only('admin');
-$router->get('/dashboard', base_path('controllers/user/index.php'))->only('user');
+$router->get('/user/dashboard', base_path('controllers/user/index.php'))->only('user');
 $router->get('/memberships', base_path('controllers/membership/index.php'))->only('anyone');
 
 // Auth actions

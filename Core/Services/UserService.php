@@ -13,7 +13,7 @@ class UserService
 {
     public static function addPay()
     {
-        $url = '/dashboard';
+        $url = '/user/dashboard';
 
         $inputs = getPost('userId', 'typeId');
 

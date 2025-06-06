@@ -17,6 +17,6 @@ view('user/dashboard.php',  [
     'user' => $user,
     'membership' => Membership::findByEmail($user->__get('email')),
     'asists' => stringToDate($asists, 'asistDate'),
-    'pays' => stringToDate($pays, 'payDate'),
+    'pays' => stringToDate($pays, 'pay_date'),
     'alert' => Response::getAlert()
 ]);
