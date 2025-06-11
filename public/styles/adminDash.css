@@ -23,5 +23,13 @@ body {
 }
 
 .selected {
-    background-color: #0046ff !important;
+    background-color: #02b0d3;
+}
+
+.card {
+    border-radius: 1rem;
+}
+
+.card .fa-2x {
+    opacity: 0.8;
 }

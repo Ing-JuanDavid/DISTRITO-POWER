@@ -12,6 +12,15 @@ use function PHPSTORM_META\map;
         die();
     }
 
+    function base_path($path) {
+        return BASE_PATH . $path;
+    }
+
+    function view($view, $attributes = []) {
+        extract($attributes);
+        require base_path("views/$view");
+    }
+
     function abort($code = 404) 
     {
         http_response_code($code);
@@ -49,21 +58,28 @@ use function PHPSTORM_META\map;
         return $_SESSION['rol'] ?? null;
     }
 
-    function stringToDate($arr, $dateProp)
+    function stringToDate($string)
     {
-        foreach ($arr as $key => $value) {
-            $timestamp = strtotime($value[$dateProp]);
-            $arr[$key][$dateProp] = date("d-M-Y", $timestamp);
-        }
-        return $arr;
-    }
-    
-    function base_path($path) {
-        return BASE_PATH . $path;
+        return $date = date('d-M-Y', strtotime($string));
     }
 
-    function view($view, $attributes = []) {
-        extract($attributes);
-        require base_path("views/$view");
+
+    function count_current_month($arr, $prop)
+    {
+        $cont = 0;
+        foreach($arr as $item) {
+            if(strpos($item[$prop], date('M'))) $cont++;
+        }
+        return $cont;
     }
+
+    function count_anything($arr, $prop, $value)
+    {
+        $cont = 0;
+        foreach($arr as $item) {
+            if($item[$prop] == $value) $cont++;
+        }
+        return $cont;
+    }
+    
 

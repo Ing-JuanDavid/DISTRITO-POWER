@@ -47,7 +47,7 @@ class Pay {
         $sql = 'SELECT p.payId, p.userId, p.typeId, p.payDate, p.value, u.name AS userName, m.name AS memName 
                 FROM pay p 
                 JOIN user u ON p.userId = u.userId 
-                JOIN membershipType m ON p.typeId = m.typeId';
+                JOIN membershipType m ON p.typeId = m.typeId ORDER BY p.payDate DESC';
         
         return self::getConnection()->query($sql)->fetchAll();
     }

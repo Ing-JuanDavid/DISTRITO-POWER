@@ -20,12 +20,18 @@
 
     <div class="d-flex">
         <!-- Sidebar -->
-        <nav class="bg-primary text-white pt-3" style="width: 250px; height: 100vh; position: fixed;">
-            <h5 class="center">Dashboard</h5>
+        <nav class="bg-info text-white pt-3" style="width: 250px; height: 100vh; position: fixed;">
+            <h5 class="center">Menu</h5>
             <ul class="nav flex-column">
 
                 <li class="nav-item side-item selected">
-                    <a class="nav-link text-white active" href="#users-tab-pane" data-bs-toggle="tab">
+                    <a class="nav-link text-white active" href="#dashboard-tab-pane" data-bs-toggle="tab">
+                        <i class="fa-solid fa-gauge-high"></i> Dashboard
+                    </a>
+                </li>
+
+                <li class="nav-item side-item">
+                    <a class="nav-link text-white" href="#users-tab-pane" data-bs-toggle="tab">
                         <i class="fa-solid fa-users"></i> Gestionar Usuarios
                     </a>
                 </li>
@@ -55,9 +61,80 @@
         <div class="container-fluid" style="margin-left: 250px;">
 
             <div class="tab-content" id="myTabContent-main">
+                <!-- Dashboard -->
+                <div class="tab-pane fade show active my-3" id="dashboard-tab-pane" role="tabpanel">
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <h2 class="mb-3"><i class="fa-solid fa-gauge-high me-2"></i>Dashboard</h2>
+                        </div>
+                    </div>
+                    <div class="row g-4 mb-4">
+                        <div class="col-12 col-md-3">
+                            <div class="card border-0 shadow-sm h-100">
+                                <div class="card-body text-center">
+                                    <i class="fa-solid fa-users fa-2x text-primary mb-2"></i>
+                                    <h6 class="card-title text-secondary">Usuarios registrados</h6>
+                                    <span class="fs-3 fw-bold text-primary"><?= $stats['users'] ?? 0 ?></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-3">
+                            <div class="card border-0 shadow-sm h-100">
+                                <div class="card-body text-center">
+                                    <i class="fa-solid fa-id-card fa-2x text-success mb-2"></i>
+                                    <h6 class="card-title text-secondary">Membresías activas</h6>
+                                    <span class="fs-3 fw-bold text-success"><?= $stats['active_mems'] ?? 0 ?></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-3">
+                            <div class="card border-0 shadow-sm h-100">
+                                <div class="card-body text-center">
+                                    <i class="fa-solid fa-money-bill-wave fa-2x text-info mb-2"></i>
+                                    <h6 class="card-title text-secondary">Pagos este mes</h6>
+                                    <span class="fs-3 fw-bold text-info"><?= $stats['pays_month'] ?? 0 ?></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-3">
+                            <div class="card border-0 shadow-sm h-100">
+                                <div class="card-body text-center">
+                                    <i class="fa-solid fa-calendar-check fa-2x text-warning mb-2"></i>
+                                    <h6 class="card-title text-secondary">Asistencias hoy</h6>
+                                    <span class="fs-3 fw-bold text-warning"><?= $stats['asists_today'] ?? 0 ?></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row g-4">
+                        <div class="col-12 col-lg-6">
+                            <div class="card shadow-sm h-100">
+                                <div class="card-body">
+                                    <h6 class="card-title fw-bold mb-3">Evolución de membresías (últimos 6 meses)</h6>
+                                    <canvas id="chartMems"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6">
+                            <div class="card shadow-sm h-100">
+                                <div class="card-body">
+                                    <h6 class="card-title fw-bold mb-3">Ingresos mensuales</h6>
+                                    <canvas id="chartPays"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ejemplo de gráfica (puedes usar Chart.js) -->
+                </div>
                 <!-- Sección de Usuarios -->
-                <div class="tab-pane fade show active my-3" id="users-tab-pane" role="tabpanel">
-                    <h3>Gestionar Usuarios</h3>
+                <div class="tab-pane fade my-3" id="users-tab-pane" role="tabpanel">
+                    <div class="row">
+                        <div class="col-12">
+                            <h2 class="mb-1"><i class="fa-solid fa-credit-card"></i> Gestionar Usuarios</h2>
+                        </div>
+                    </div>
                     <!-- usersTable -->
                     <div class=" d-flex justify-content-end align-items-center mb-3">
                         <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">
@@ -108,7 +185,11 @@
 
                 <!-- Sección de Membresias -->
                 <div class="tab-pane fade my-3" id="mems-tab-pane" role="tabpanel">
-                    <h3>Gestionar Membresias</h3>
+                    <div class="row">
+                        <div class="col-12">
+                            <h2 class="mb-1"><i class="fa-solid fa-credit-card"></i> Gestionar Membresias</h2>
+                        </div>
+                    </div>
                     <div class=" d-flex justify-content-end align-items-center mb-3">
                         <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#addMemModal">
                             <i class="fa-solid fa-plus"></i> Agregar Membresia
@@ -156,10 +237,13 @@
                     </table>
                 </div>
 
-
                 <!-- Sección de Miembros -->
                 <div class="tab-pane fade my-3" id="members-tab-pane" role="tabpanel">
-                    <h3>Miembros y Asistencia</h3>
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <h2 class="mb-3"><i class="fa-solid fa-user-check"></i> Miembros y Asistencia</h2>
+                        </div>
+                    </div>
                     <table class="table table-striped" id="members">
                         <thead>
                             <tr>
@@ -191,7 +275,11 @@
 
                 <!-- Sección de Pagos -->
                 <div class="tab-pane fade my-3" id="payments-tab-pane" role="tabpanel">
-                    <h3>Pagos</h3>
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <h2 class="mb-3"><i class="fa-solid fa-money-bill"></i> Pagos</h2>
+                        </div>
+                    </div>
                     <table class="table table-striped" id="pays">
                         <thead>
                             <tr>
@@ -218,12 +306,12 @@
                             <?php endif; ?>
                         </tbody>
                     </table>
-                    
-            
-                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addPayModal">Registrar Pago</button>
-                        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#makeReport">Generar reporte</button>
-        
-                
+
+
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addPayModal">Registrar Pago</button>
+                    <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#makeReport">Generar reporte</button>
+
+
                 </div>
             </div>
 
@@ -490,7 +578,7 @@
     </div>
 
     <!-- Boostrapt -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
     <!-- Fontawesome -->
     <script src="https://kit.fontawesome.com/94b343effb.js" crossorigin="anonymous"></script>

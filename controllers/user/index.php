@@ -8,15 +8,23 @@ use models\User;
 $links = require base_path('links.php');
 
 $user = User::findUserById($_SESSION['userId'] ?? null);
-$asists = Membership::getAsistsByUSerId($_SESSION['userId'] ?? null);
-$pays = Pay::getPaysByUserId($_SESSION['userId'] ?? null);
 
+$asists = array_map(function($asist) {
+    $asist['asistDate'] = stringToDate($asist['asistDate']);
+    return $asist;
+}, Membership::getAsistsByUSerId($_SESSION['userId']));
+
+$pays = array_map(function($pay) {
+    $pay['pay_date'] = stringToDate($pay['pay_date']);
+    return $pay;
+}, Pay::getPaysByUserId($_SESSION['userId']));
 
 view('user/dashboard.php',  [
     'links' => $links,
     'user' => $user,
     'membership' => Membership::findByEmail($user->__get('email')),
-    'asists' => stringToDate($asists, 'asistDate'),
-    'pays' => stringToDate($pays, 'pay_date'),
-    'alert' => Response::getAlert()
+    'asists' => $asists,
+    'pays' => $pays,
+    'alert' => Response::getAlert(),
+    'count_asists' => count_current_month($asists, 'asistDate')
 ]);

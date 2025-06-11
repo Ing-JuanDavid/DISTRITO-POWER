@@ -48,7 +48,7 @@ class Membership {
 
     public static function findByEmail($email)
     {
-        $sql = 'SELECT m.memId AS mem_id, u.name AS user_name, mt.name AS membership_type, m.daysRe AS days_res, m.status, p.payDate AS pay_date
+        $sql = 'SELECT m.memId AS mem_id, u.name AS user_name, mt.name AS membership_type, m.startDate AS start_date, m.daysRe AS days_res, m.status
                 FROM user u
                 JOIN membership m ON u.userId = m.userId
                 JOIN membershipType mt ON m.typeId = mt.typeId
@@ -97,5 +97,11 @@ class Membership {
     {
         $sql = 'SELECT * FROM asist WHERE userId = ? ORDER BY asistDate DESC';
         return self::getConnection()->query($sql, [$userId])->fetchAll();
+    }
+
+    public static function getAsistToday()
+    {
+        $sql = 'SELECT * FROM asist WHERE asistDate = CURRENT_DATE()';
+        return self::getConnection()->query($sql)->fetchAll();
     }
 }

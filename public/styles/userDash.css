@@ -33,12 +33,13 @@ body {
 .action-list a {
     color: #fff;
     font-weight: bold;
-    text-decoration: underline;
+    text-decoration: none;
 }
 
 .action-list a:hover {
-    text-decoration: none;
     color: #e0e0e0;
+    text-decoration: underline;
+    cursor: pointer;
 }
 
 /* Títulos de tarjetas */
@@ -46,6 +47,10 @@ body {
     margin-bottom: 12px;
     font-weight: 600;
     color: #333;
+}
+
+.selected {
+    background-color: #02b0d3;
 }
 
 
