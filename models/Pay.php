@@ -47,7 +47,7 @@ class Pay {
         $sql = 'SELECT p.payId, p.userId, p.typeId, p.payDate, p.value, u.name AS userName, m.name AS memName 
                 FROM pay p 
                 JOIN user u ON p.userId = u.userId 
-                JOIN membershipType m ON p.typeId = m.typeId ORDER BY p.payDate DESC';
+                JOIN membershipType m ON p.typeId = m.typeId ORDER BY p.payDate ASC';
         
         return self::getConnection()->query($sql)->fetchAll();
     }
@@ -65,7 +65,7 @@ class Pay {
     $months = [];
     foreach($pays as $pay) {
         $date = strtotime($pay['payDate']);
-        $month = date('F y', $date);
+        $month = date('F-y', $date);
 
         if (!in_array($month, $months)) {
             $months[] = $month;
@@ -75,8 +75,24 @@ class Pay {
     }
 
     public static function getPaysByMonth($month) {
-        $sql = "SELECT * FROM pay WHERE DATE_FORMAT(payDate, '%M %y') = ?";
+        $sql = "SELECT * FROM pay WHERE DATE_FORMAT(payDate, '%M-%y') = ?";
         return self::getConnection()->query($sql, [$month])->fetchAll();
+    }
+
+    public static function getTotalByMonths($pays)
+    {
+        $result = [];
+
+        foreach ($pays as $pay) {
+            $date = date('F', strtotime($pay['payDate']));
+            $value = $pay['value'];
+
+            if(! isset($result[$date])) $result[$date] = 0;
+
+            $result[$date] += $value;
+        }
+
+        return $result;
     }
 
     public static function getTotal($pays) {

@@ -80,7 +80,7 @@ function initCharts() {
                 data: {
                     labels: memsLabels,
                     datasets: [{
-                        label: 'Membresías activas',
+                        label: '# membresías',
                         data: chartMemsData,
                         borderColor: '#0d6efd',
                         backgroundColor: 'rgba(13,110,253,0.1)',

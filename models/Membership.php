@@ -73,6 +73,26 @@ class Membership {
         return self::getConnection()->query($sql)->fetchAll();
     }
 
+    public static function totalForeachMonth($months, $dates)
+    {
+        $result = [];
+        foreach($months as $month)
+        {
+            if(in_array($month, $dates)) {
+                $cont = 0;
+                foreach($dates as $date)
+                {
+                    if($date == $month) $cont++;
+                }
+                $result[$month] = $cont;
+            }
+            else {
+                $result[$month] = 0;
+            }
+        }
+        return $result;
+    }
+
     public static function deleteByUserId($userId)
     {
         $sql = 'DELETE FROM membership WHERE userId = ?';

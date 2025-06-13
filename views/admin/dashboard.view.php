@@ -119,7 +119,7 @@
                         <div class="col-12 col-lg-6">
                             <div class="card shadow-sm h-100">
                                 <div class="card-body">
-                                    <h6 class="card-title fw-bold mb-3">Evolución de membresías (últimos 6 meses)</h6>
+                                    <h6 class="card-title fw-bold mb-3">Evolución de membresías (últimos <?= sizeof($chartMems)?> meses)</h6>
                                     <canvas id="chartMems"></canvas>
                                 </div>
                             </div>
@@ -134,13 +134,12 @@
                         </div>
                     </div>
 
-                    <!-- Ejemplo de gráfica (puedes usar Chart.js) -->
                 </div>
                 <!-- Sección de Usuarios -->
                 <div class="tab-pane fade my-3" id="users-tab-pane" role="tabpanel">
                     <div class="row">
                         <div class="col-12">
-                            <h2 class="mb-1"><i class="fa-solid fa-credit-card"></i> Gestionar Usuarios</h2>
+                            <h2 class="mb-1"><i class="fa-solid fa-users"></i> Gestionar Usuarios</h2>
                         </div>
                     </div>
                     <!-- usersTable -->
@@ -474,8 +473,9 @@
                         <input type="hidden" name="_method" value="POST">
 
                         <select class="form-control w-50" name="date" id="">
-                            <option value="<?= $payDates[0] ?>" disable selected>Selecciona un mes</option>
-                            <?php foreach ($payDates as $date): ?>
+                            <option value="<?= $payMonths[0] ?>" disable selected>Selecciona un mes</option>
+                            <?php $payMonths = array_reverse($payMonths) ?>
+                            <?php foreach ($payMonths as $date): ?>
                                 <?= "<option value='" . $date .  "'" . ">" . $date . "</option>" ?>
                             <?php endforeach; ?>
                         </select>
@@ -597,9 +597,9 @@
     <script>
         // Convierte los arrays asociativos en dos arrays: uno de labels y otro de datos
         var payLabels = <?= json_encode(array_keys($chartPays)) ?>; // ['Enero', 'Febrero', ...]
-        var memsLabels = <?= json_encode(array_keys($chartMems)) ?>;
+        var memsLabels = <?= json_encode($chartMems) ?>;
         var chartPaysData = <?= json_encode(array_values($chartPays)) ?>; // [10, 15, ...]
-        var chartMemsData = <?= json_encode(array_values($chartMems)) ?>; // [12, 18, ...]
+        var chartMemsData = <?= json_encode($memsData) ?>; // [12, 18, ...]
     </script>
     <script src="/main.js"></script>
 </body>

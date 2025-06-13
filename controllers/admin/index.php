@@ -15,7 +15,8 @@ $pays = array_map(function ($pay) {
 }, Pay::getPays());
 
 
-$payDates = Pay::getMonths($pays);
+$payMonths = Pay::getMonths($pays);
+
 
 $users = User::getUsers();
 $members = Membership::getMembers();
@@ -28,19 +29,14 @@ $stats = [
     'asists_today' => sizeof($asists)
 ];
 
-$temPays = array_map(function($pay){
-    $pay['payDate'] = date('F', strtotime($pay['payDate']));
-    return $pay['payDate'];
-}, $pays);
-
-$tempMembers = array_map(function($member){
+$memberMonths = array_map(function($member){
     $member['start_date'] = date('F', strtotime($member['start_date']));
     return $member['start_date'];
 }, $members);
 
-
-$chartPays = array_reverse(array_count_values($temPays));
-$chartMems = array_reverse(array_count_values($tempMembers));
+$chartPays = Pay::getTotalByMonths($pays);
+$labels = monthsTransurred();
+$memsData = Membership::totalForeachMonth($labels, $memberMonths);
 
 
 view('admin/dashboard.view.php',[
@@ -49,10 +45,10 @@ view('admin/dashboard.view.php',[
     'mems' => MembershipType::getMems(),
     'members' => $members,
     'pays' => $pays,
-    'payDates' => $payDates,
+    'payMonths' => $payMonths,
     'alert' => Response::getAlert(),
     'stats' => $stats,
-
     'chartPays' => $chartPays,
-    'chartMems' => $chartMems
+    'chartMems' => $labels,
+    'memsData' => $memsData
 ]); 
