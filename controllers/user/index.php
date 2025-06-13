@@ -26,5 +26,5 @@ view('user/dashboard.php',  [
     'asists' => $asists,
     'pays' => $pays,
     'alert' => Response::getAlert(),
-    'count_asists' => count_current_month($asists, 'asistDate')
+    'count_asists' => countCurrentMonth($asists, 'asistDate')
 ]);

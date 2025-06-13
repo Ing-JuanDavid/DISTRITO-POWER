@@ -64,8 +64,16 @@
                 <!-- Dashboard -->
                 <div class="tab-pane fade show active my-3" id="dashboard-tab-pane" role="tabpanel">
                     <div class="row mb-4">
-                        <div class="col-12">
+                        <div class="col-7">
                             <h2 class="mb-3"><i class="fa-solid fa-gauge-high me-2"></i>Dashboard</h2>
+                        </div>
+                        <div class="col-5">
+                            <?php if ($alert): ?>
+                                <div class="alert alert-<?= $alert['type'] ?> alert-dismissible fade show position-stiky m-0" role="alert">
+                                    <?= $alert['body'] ?>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            <?php endif; ?>
                         </div>
                     </div>
                     <div class="row g-4 mb-4">
@@ -315,12 +323,6 @@
                 </div>
             </div>
 
-            <?php if ($alert): ?>
-                <div class="alert alert-<?= $alert['type'] ?> alert-dismissible fade show position-stiky" role="alert">
-                    <?= $alert['body'] ?>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            <?php endif; ?>
         </div>
     </div>
 
@@ -588,6 +590,17 @@
     <script src="https://cdn.datatables.net/2.3.0/js/dataTables.js"></script>
     <script src="https://cdn.datatables.net/2.3.0/js/dataTables.bootstrap5.js"></script>
 
+    <!-- Chart -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+    <script>
+        // Convierte los arrays asociativos en dos arrays: uno de labels y otro de datos
+        var payLabels = <?= json_encode(array_keys($chartPays)) ?>; // ['Enero', 'Febrero', ...]
+        var memsLabels = <?= json_encode(array_keys($chartMems)) ?>;
+        var chartPaysData = <?= json_encode(array_values($chartPays)) ?>; // [10, 15, ...]
+        var chartMemsData = <?= json_encode(array_values($chartMems)) ?>; // [12, 18, ...]
+    </script>
     <script src="/main.js"></script>
 </body>
 

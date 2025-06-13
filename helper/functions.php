@@ -64,7 +64,7 @@ use function PHPSTORM_META\map;
     }
 
 
-    function count_current_month($arr, $prop)
+    function countCurrentMonth($arr, $prop)
     {
         $cont = 0;
         foreach($arr as $item) {
@@ -73,7 +73,7 @@ use function PHPSTORM_META\map;
         return $cont;
     }
 
-    function count_anything($arr, $prop, $value)
+    function countAnything($arr, $prop, $value)
     {
         $cont = 0;
         foreach($arr as $item) {
