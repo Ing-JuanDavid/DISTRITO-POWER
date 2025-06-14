@@ -12,8 +12,8 @@
 
     <div class="d-flex">
         <!-- Sidebar -->
-        <nav class="bg-info text-white pt-3" style="width: 200px; height: 100vh; position: fixed;">
-            <h5 class="text-center">Menu</h5>
+        <nav class="sidebar bg-info text-white pt-3" style="width: 200px; height: 100vh; position: fixed;">
+            <h5 class="text-center">Menú</h5>
 
             <ul class="nav flex-column">
                 <li class="nav-item side-item selected" id="item-d" onclick="showTab('dashboard-tab-pane', 'item-d')">
@@ -30,7 +30,7 @@
 
                 <li class="nav-item side-item" id="item-a" onclick="showTab('asist-tab-pane', 'item-a')">
                     <a class="nav-link text-white" href="#asist-tab-pane" data-bs-toggle="tab">
-                        <i class="fa-solid fa-user-check"></i> Asistencias
+                        <i class="fa-solid fa-user-check"></i>Asistencias
                     </a>
                 </li>
 
@@ -43,13 +43,61 @@
             </ul>
         </nav>
 
+        <!-- Sidebar mobile -->
+        <div class="offcanvas offcanvas-start bg-info text-white" tabindex="-1" id="sidebarOffcanvas">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title">Menú</h5>
+                <button type="button" class="btn-close btn-close-white text-reset" data-bs-dismiss="offcanvas"></button>
+            </div>
+            <div class="offcanvas-body p-0">
+                <ul class="nav flex-column">
+                    <li class="nav-item side-item selected mb-2" id="dashboard-item">
+                        <a class="nav-link text-white active"
+                            href="#dashboard-tab-pane"
+                            data-bs-toggle="tab"
+                            onclick="showTab('dashboard-tab-pane', 'dashboard-item')">
+                            Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item side-item mb-2" id="membership-item">
+                        <a class="nav-link text-white"
+                            href="#membership-tab-pane"
+                            data-bs-toggle="tab"
+                            onclick="showTab('membership-tab-pane', 'membership-item')">
+                            Mi Membresía
+                        </a>
+                    </li>
+                    <li class="nav-item side-item mb-2" id="asists-item">
+                        <a class="nav-link text-white"
+                            href="#asists-tab-pane"
+                            data-bs-toggle="tab"
+                            onclick="showTab('asist-tab-pane', 'asists-item')">
+                            Asistencias
+                        </a>
+                    </li>
+                    <li class="nav-item side-item mb-2" id="payments-item">
+                        <a class="nav-link text-white"
+                            href="#payments-tab-pane"
+                            data-bs-toggle="tab"
+                            onclick="showTab('pays-tab-pane', 'payments-item')">
+                            Pagos
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
         <!-- Main Content -->
-        <div class="container-fluid" style="margin-left: 200px;">
+        <div class="container-fluid main-content" style="margin-left: 200px;">
 
             <div class="tab-content" id="myTabContent-main">
                 <!-- Dashboard -->
                 <div class="tab-pane fade show active my-3 px-2" id="dashboard-tab-pane" role="tabpanel">
-                    <h3>Dashboard</h3>
+                    <div class="row">
+                        <div class="col-12">
+                            <h2 class="mb-3"><i class="fa-solid fa-gauge-high me-2"></i>Dashboard</h2>
+                        </div>
+                    </div>
 
                     <div class="row g-4">
                         <div class="col-12 col-md-6">
@@ -132,7 +180,12 @@
                 </div>
 
                 <div class="tab-pane fade my-3 px-2" id="membership-tab-pane" role="tabpanel">
-                    <h3>Membresia</h3>
+                    <div class="row">
+                        <div class="col-12">
+                            <h2 class="mb-3"><i class="fa-solid fa-credit-card"></i> Membresia</h2>
+                        </div>
+                    </div>
+
                     <div class="card mb-3">
                         <div class="card-body">
                             <h5 class="card-title">Tu membresía actual</h5>
@@ -152,31 +205,38 @@
                 </div>
 
                 <div class="tab-pane fade my-3 px-2" id="asist-tab-pane" role="tabpanel">
-                    <h3>Asistencias</h3>
-
-                    <div class="table-container">
-                        <table class="table table-striped" id="asist-table">
-                            <thead>
-                                <th>#</th>
-                                <th>Fecha</th>
-                            </thead>
-                            <tbody>
-                                <?php $i = 0; ?>
-                                <?php foreach ($asists as $asist): ?>
-                                    <tr>
-                                        <td> <?= ++$i ?> </td>
-                                        <td> <?= $asist['asistDate'] ?> </td>
-                                    </tr>
-
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
+                    <div class="row">
+                        <div class="col-12">
+                            <h2 class="mb-3"><i class="fa-solid fa-user-check"></i> Asistencias</h2>
+                        </div>
                     </div>
+
+                    <table class="table table-striped" id="asist-table">
+                        <thead>
+                            <th>#</th>
+                            <th>Fecha</th>
+                        </thead>
+                        <tbody>
+                            <?php $i = 0; ?>
+                            <?php foreach ($asists as $asist): ?>
+                                <tr>
+                                    <td> <?= ++$i ?> </td>
+                                    <td> <?= $asist['asistDate'] ?> </td>
+                                </tr>
+
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+
 
                 </div>
 
                 <div class="tab-pane fade my-3 px-2" id="pays-tab-pane" role="tabpanel">
-                    <h3>Historial de pagos</h3>
+                    <div class="row">
+                        <div class="col-12">
+                            <h2 class="mb-3"><i class="fa-solid fa-clock-rotate-left"></i> Pagos</h2>
+                        </div>
+                    </div>
                     <table id="pays-table" class="table table-striped">
                         <thead>
                             <th>Id</th>

@@ -76,20 +76,48 @@ const initDataTable = ()=> {
 
 window.addEventListener('load', ()=>{
     initDataTable();
+    initUserOffcanvasAutoClose();
 
 })
 
 const sideItems = document.querySelectorAll('.side-item')
 
 function showTab(tabId, itemId) {
-    const tabTrigger = new bootstrap.Tab(document.querySelector(`[href="#${tabId}"]`));
-    tabTrigger.show();
+    // Cambia el tab usando Bootstrap
+    const tabTriggerEl = document.querySelector(`a[href="#${tabId}"]`);
+    if (tabTriggerEl) {
+        const tab = new bootstrap.Tab(tabTriggerEl);
+        tab.show();
+    }
 
+    // Quita selección previa y marca el actual
     removeSelection();
     const item = document.getElementById(itemId);
     if (item) {
         item.classList.add('selected');
     }
+
+    // Cierra el offcanvas si está abierto (móvil)
+    const offcanvasEl = document.getElementById('sidebarOffcanvas');
+    if (offcanvasEl && window.innerWidth < 768) {
+        const offcanvas = bootstrap.Offcanvas.getInstance(offcanvasEl);
+        if (offcanvas) {
+            offcanvas.hide();
+        }
+    }
+}
+
+function initUserOffcanvasAutoClose() {
+    const offcanvasLinks = document.querySelectorAll('#userSidebarOffcanvas .nav-link');
+    offcanvasLinks.forEach(link => {
+        link.addEventListener('click', function () {
+            const offcanvasEl = document.getElementById('userSidebarOffcanvas');
+            const offcanvas = bootstrap.Offcanvas.getInstance(offcanvasEl);
+            if (offcanvas) {
+                offcanvas.hide();
+            }
+        });
+    });
 }
 
 

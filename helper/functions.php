@@ -115,3 +115,8 @@ function monthsTransurred()
     }
 }
 
+function uriIs($uri)
+{
+    return ($uri == parse_url($_SERVER['REQUEST_URI'])['path']);
+}
+
