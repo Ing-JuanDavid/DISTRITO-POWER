@@ -39,7 +39,6 @@
                         <i class="fa-solid fa-clock-rotate-left"></i> Historial de pagos
                     </a>
                 </li>
-
             </ul>
         </nav>
 
@@ -113,7 +112,7 @@
                         </div>
 
                         <div class="col-12 col-md-6">
-                            <div class="panel shadow-sm">
+                            <div class="notifications-panel shadow-sm">
 
                                 <div class="d-flex align-items-center justify-content-center">
                                     <span class="me-2 fs-3">🔔</span>
@@ -138,7 +137,7 @@
                                     <p class="text-secondary">No tienes una membresía activa.</p>
                                     <a href="/memberships?id=<?= $user->__get('userId') ?>" class="btn btn-primary mt-2">Adquirir Membresía</a>
                                 <?php else: ?>
-                                    <span class="fs-2 text-primary"><?= $membership['membership_type'] ?></span>
+                                    <span class="stat-value"><?= $membership['membership_type'] ?></span>
                                 <?php endif; ?>
                             </div>
                         </div>
@@ -149,7 +148,7 @@
                                 <?php if (! $membership || $membership['status'] == 'vencida'): ?>
                                     <p class="text-secondary">No tienes una membresía activa.</p>
                                 <?php else: ?>
-                                    <span class="fs-2 text-success"><?= $membership['days_res'] ?></span>
+                                    <span class="stat-value"><?= $membership['days_res'] ?></span>
                                 <?php endif; ?>
                             </div>
                         </div>
@@ -158,7 +157,7 @@
                             <div class="panel h-100 shadow-sm text-center stat-card">
                                 <h5>Asistencias este mes</h5>
                                 <?php if ($asists): ?>
-                                    <span class="fs-2 text-secondary"><?= $count_asists ?></span>
+                                    <span class="stat-value"><?= $count_asists ?></span>
                                 <?php else: ?>
                                     <p class="text-secondary text-center mt-2">No hay asistencias registradas.</p>
                                 <?php endif; ?>
@@ -169,7 +168,7 @@
                             <div class="panel h-100 shadow-sm text-center stat-card">
                                 <h5>Último pago</h5>
                                 <?php if ($pays): ?>
-                                    <span class="fs-2 text-secondary"><?= $pays[0]['pay_date'] ?></span>
+                                    <span class="stat-value"><?= $pays[0]['pay_date'] ?></span>
                                 <?php else: ?>
                                     <p class="text-secondary text-center mt-2">No hay pagos registrados.</p>
                                 <?php endif; ?>
@@ -259,8 +258,31 @@
 
             </div>
         </div>
-
     </div>
+
+    <!-- modal edit -->
+    <div id="profile" class="modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header d-flex flex-column align-items-start">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h5><?= $user->__get('name') ?></h5>
+                    <p class="m-0">cliente</p>
+                    <p class="m-0"><?= $user->__get('email') ?></p>
+                </div>
+
+                <div class="modal-body">
+                
+                <div class="pb-2 border-bottom bottom-1 border-secondary-subtle">
+                    <a href="/changepass" class="nav-link">Cambiar contraseña</a>
+                </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Boostrapt -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>

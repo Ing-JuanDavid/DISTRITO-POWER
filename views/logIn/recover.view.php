@@ -17,7 +17,7 @@
                 <input type="email" class="form-control border-secondary-subtle" name="email" placeholder="Email">
             </div>
 
-            <button type="submit" class="btn btn-info text-light fw-bold w-100">Recuperar</button>
+            <button type="submit" class="btn bg-info text-light fw-bold w-100">Recuperar</button>
 
             <?php if ($alert): ?>
                 <div class="mt-3 alert alert-<?= $alert['type'] ?> "><?= $alert['body'] ?></div>

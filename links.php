@@ -26,7 +26,7 @@ if($rol == 'user') {
     $links = [
         ['name' => 'Inicio', 'route' => '/'],
         ['name' => 'Dashboard', 'route' => '/user/dashboard'],
-        ['name' => 'Salir', 'route' => '/logout']
+        ['name' => 'Salir', 'route' => '/logout'],
     ];
 }
 

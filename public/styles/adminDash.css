@@ -2,6 +2,14 @@ body {
     background-color: #f4f6f9; 
 }
 
+.text-info {
+    color: #17a2b8 !important;
+}
+
+.bg-info {
+    background-color: #17a2b8 !important;
+}
+
 .center {
     text-align: center !important;
     vertical-align: middle !important;
@@ -22,8 +30,9 @@ body {
     color: #fff !important;
 }
 
+
 .selected {
-    background-color: #02b0d3;
+    background-color: #138496 !important;
 }
 
 .card {

@@ -1,7 +1,63 @@
 body {
-    background-color: #f4f6f9; 
+    background-color: #f4f6f9;
+}
+
+.text-info {
+    color: #17a2b8 !important;
+}
+
+.dp-section-title {
+    color: #17a2b8;
+    font-weight: 700;
+}
+
+.dp-card {
+    border: none;
+    border-radius: 1rem;
+    box-shadow: 0 2px 16px rgba(23, 162, 184, 0.07);
+    background: #fff;
+}
+
+.dp-card-info {
+    background: #17a2b8;
+    color: #fff;
+}
+
+.dp-card-info .form-control {
+    background: #eaf7fa;
+    border: none;
+}
+
+.dp-team-img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid #17a2b8;
+    margin-bottom: 10px;
+}
+
+.dp-link {
+    color: #fff;
+    padding-bottom: 2px;
+    text-decoration: underline;
+}
+
+.dp-link:hover {
+    color: #fff;
+}
+
+.dp-btn {
+    background: #17a2b8;
+    color: #fff;
+    border: none;
+}
+
+.dp-btn:hover {
+    background: #138496;
+    color: #fff;
 }
 
 footer a:hover {
-    color: #0dcaf0 !important;
+    color: #138496 !important;
 }

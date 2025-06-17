@@ -45,6 +45,13 @@ function start_session($user, $rol = "user", $userId)
     $_SESSION["userId"] = $userId;
 }
 
+function getFromSession($key) {
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+    return $_SESSION[$key] ?? null;
+}
+
 
 function getPost(...$inputs)
 {
@@ -115,7 +122,7 @@ function monthsTransurred()
     }
 }
 
-function uriIs($uri)
+function isUri($uri)
 {
     return ($uri == parse_url($_SERVER['REQUEST_URI'])['path']);
 }

@@ -1,7 +1,7 @@
 <header>
     <nav class="navbar navbar-expand-lg bg-body border-bottom">
         <div class="container-fluid">
-            <?php if(uriIs('/user/dashboard')):?>
+            <?php if(isUri('/user/dashboard')):?>
                 <button class="btn btn-info d-md-none ms-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarOffcanvas" aria-label="Menú">
                     ☰
                 </button>
@@ -23,6 +23,10 @@
                         <?php endforeach; ?>
                     <?php else: ?>
                         <p>Debe definir los enlaces</p>
+                    <?php endif; ?>
+
+                    <?php if(isUri('/user/dashboard')) :?>
+                            <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#profile">Perfil</a>
                     <?php endif; ?>
 
                 </ul>

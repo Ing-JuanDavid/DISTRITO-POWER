@@ -15,10 +15,10 @@
             No esperes a mañana, tu mejor versión empieza hoy
         </p>
         
-        <div class="flex-container py-4">
+        <div class="flex-container py-4 mb-5">
             <?php foreach ($memberships as $membership) : ?>
                 <div class="membership">
-                    <h4><?= $membership['name'] ?></h4>
+                    <h4 class="text-info"><?= $membership['name'] ?></h4>
                     <p>Desde</p>
                     <span>$<?= number_format($membership['value'], 0) ?></span>
                     <p>Duración</p>

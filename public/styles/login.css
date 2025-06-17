@@ -3,3 +3,15 @@ body {
     color: #333;
 }
 
+.text-info {
+    color: #17a2b8 !important;
+}
+
+.bg-info {
+    background-color: #17a2b8 !important;
+}
+
+.btn:hover {
+    background-color: #138496 !important;
+}
+

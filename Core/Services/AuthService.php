@@ -96,6 +96,37 @@ class AuthService {
         }
     }
 
+
+    public static function changuePassword($userId) 
+    {
+        $url = '/changepass';
+        $inputs = getPost('currentPass', 'newPass', 'passConfirmation');
+        $inputs = Validator::inputs($inputs, $url);
+
+        if($inputs['newPass'] !== $inputs['passConfirmation']) {
+            Response::redirect($url, 'danger', 'Las contraseñas no coinciden');
+        }
+
+        $user = User::findUserById($userId);
+        
+        if(! $user) {
+            Response::redirect($url, 'danger', 'Usuario no encontrado');
+        }
+
+        if(! password_verify($inputs['currentPass'], $user->__get("password"))) {
+            Response::redirect($url, 'danger', 'Contraseña actual incorrecta');
+        }
+
+        $newPassHash = password_hash($inputs['newPass'], PASSWORD_DEFAULT);
+
+        try {
+            User::editProp($user, "password", $newPassHash);
+            Response::redirect('/user/dashboard', 'success', 'Contraseña cambiada exitosamente');
+        } catch(PDOException $e) {
+            Response::redirect($url, 'danger', 'Error al cambiar contraseña');
+        }
+    }   
+
     private static function rememberSession($user) 
     {
         $token = bin2hex(random_bytes(8));

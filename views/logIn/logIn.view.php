@@ -26,7 +26,7 @@
                 <label class="form-check-label text-secondary" for="remember">Recordar sesión</label>
             </div>
 
-            <button type="submit" class="btn btn-info text-light fw-bold w-100">Iniciar Sesión</button>
+            <button type="submit" class="btn bg-info text-light fw-bold w-100">Iniciar Sesión</button>
 
             <div class="mt-3 d-flex flex-column align-items-center">
                 <a href="/recover" class="text-info text-decoration-none">¿Olvidaste tu contraseña?</a>

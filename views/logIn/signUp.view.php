@@ -29,7 +29,7 @@
                 <input type="password" class="form-control border-secondary-subtle" name="pass" placeholder="Contraseña">
             </div>
 
-            <button type="submit" class="btn btn-info text-light fw-bold w-100">Crear</button>
+            <button type="submit" class="btn bg-info text-light fw-bold w-100">Crear</button>
 
             <?php if ($alert): ?>
                 <div class="mt-3 alert alert-<?= $alert['type'] ?> "><?= $alert['body'] ?></div>

@@ -38,3 +38,5 @@ $router->post('/admin/dashboard/report', base_path('controllers/admin/makeReport
 //User actions
 // Buy Membership
 $router->post('/membership/create', base_path('controllers/membership/create.php'))->only('anyone');
+$router->get('/changepass', base_path('controllers/user/views/changePass.php'))->only('user');
+$router->post('/changepass', base_path('controllers/user/changePass.php'))->only('user');
