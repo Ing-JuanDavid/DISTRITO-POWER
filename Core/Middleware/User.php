@@ -10,21 +10,16 @@ class User
     public function handle()
     {
 
-        $user = $_SESSION['user'] ?? null;
-        $userId = $_SESSION['userId'] ?? null;
+        $user = getFromSession('user');
+        $userId = getFromSession('userId');
+
+        if(! $user && ! AuthService::chekKeepSession())  abort(403);
 
         if($user) {
             if(! ModelsUser::findUserByEmail($user) || ! ModelsUser::findUserById($userId)) AuthService::logOut();
         }
-
-
-        if(! $user) {
-            if (! AuthService::chekKeepSession()) abort(403);
-        }
-        
     
-        if (! isset($_SESSION['rol']) || $_SESSION['rol'] !== 'user') {
-            abort(403);
-        }
+        if (! getFromSession('rol') || getFromSession('rol') !== 'user') abort(403);
+
     }
 }

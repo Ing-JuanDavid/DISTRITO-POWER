@@ -11,9 +11,9 @@ $container->bind('Core/Database', function(){
     return new Database($config['database']);
 });
 
-App::setContainer($container);
+App::set_Container($container);
 
-// var_dump(App::container()->resolve('Core/Database'));
+//var_dump(App::container()->resolve('Core/Database'));
 
 
 

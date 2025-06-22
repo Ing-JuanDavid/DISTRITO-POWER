@@ -8,7 +8,7 @@ $router->get('/login', base_path('controllers/logIn/logIn.php'))->only('guest');
 $router->get('/signup', base_path('controllers/logIn/signUp.php'))->only('guest');
 $router->get('/recover', base_path('controllers/logIn/recover.php'))->only('guest');
 $router->get('/logout',  base_path('controllers/auth/logOut.php'))->only('auth');
-$router->get('/keepSession', base_path('controllers/logIn/keepSession.php'))->only('token');
+$router->get('/keepsession', base_path('controllers/logIn/keepSession.php'))->only('token');
 
 // Users
 $router->get('/admin/dashboard', base_path('controllers/admin/index.php'))->only('admin');

@@ -55,7 +55,7 @@
         <div class="col-12 col-md-4 text-center mb-4">
             <div class="dp-card p-4 h-100">
                 <img src="/img/entrenador2.png" alt="Entrenadora 2" class="dp-team-img">
-                <h5 class="mb-1" style="color:#17a2b8;">María López</h5>
+                <h5 class="mb-1" style="color:#17a2b8;">Luis Fernandez</h5>
                 <p class="text-muted mb-0">Nutricionista</p>
                 <small>Asesoría nutricional y planes alimenticios personalizados.</small>
             </div>

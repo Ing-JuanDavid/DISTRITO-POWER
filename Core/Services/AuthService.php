@@ -16,7 +16,7 @@ class AuthService {
     {
         $url = '/login';
         
-        $inputs = getPost('_method', 'email', 'pass', 'remember');
+        $inputs = getPost('email', 'pass', 'remember');
 
         $inputs = Validator::inputs($inputs, $url);
         Validator::email($inputs['email'], $url);
@@ -25,11 +25,9 @@ class AuthService {
 
         if($user) {
             if(password_verify($inputs['pass'], $user->__get("password"))) {
-                session_start();
-                $_SESSION["user"] = $inputs['email'];
-                $_SESSION["rol"] = $user->__get("rol");
-                $_SESSION["userId"] = $user->__get("userId");
-            
+
+                start_session($inputs['email'], $user->__get("rol"), $user->__get("userId"));
+                    
                 if($inputs['remember']) 
                     self::rememberSession($user);
                 else
@@ -144,19 +142,20 @@ class AuthService {
                 abort(403);
             }
 
-            $_SESSION['temp_user'] = $user;
-            Response::redirect('/keepSession');
+            setSession('temp_user', $user);
+            Response::redirect('/keepsession');
         }
         return false;
     }
 
     public static function recoverSession()
     {
-        $url = '/keepSession';
+        $url = '/keepsession';
         $inputs = getPost('email', 'rol', 'userId');
 
         Validator::inputs($inputs, $url);
         Validator::email($inputs['email'], $url);
+        Validator::userByToken($inputs);
 
         start_session($inputs['email'], $inputs['rol'], $inputs['userId']);
         Response::redirectToDashboard();

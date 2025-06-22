@@ -45,13 +45,19 @@ function start_session($user, $rol = "user", $userId)
     $_SESSION["userId"] = $userId;
 }
 
+function setSession($key, $value) {
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+    $_SESSION[$key] = $value;
+}
+
 function getFromSession($key) {
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
     }
     return $_SESSION[$key] ?? null;
 }
-
 
 function getPost(...$inputs)
 {

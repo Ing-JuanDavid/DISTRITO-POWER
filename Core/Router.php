@@ -38,7 +38,6 @@ class Router {
         foreach ($this->routes as $route) {
 
             if ($route['uri'] === $uri && $route['method'] === $method) {
-                session_start();
 
                 $class = Middleware::MAP[$route['middleware']] ?? null;
                 

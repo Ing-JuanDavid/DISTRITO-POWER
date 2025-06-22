@@ -9,7 +9,7 @@ class Anyone
     public function handle()
     {
 
-        if(!isset($_SESSION['user'])) {
+        if(! getFromSession('user')) {
             AuthService::chekKeepSession();
         }
     }

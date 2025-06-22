@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php view('partials/head.php', ['title' => 'Recuperar', 'style' => 'login.css']) ?>
+<?php view('partials/head.php', ['title' => 'Cambiar', 'style' => 'login.css']) ?>
 
 <body class="overflow-hidden">
     
@@ -25,7 +25,7 @@
                 <input type="password" class="form-control border-secondary-subtle" name="passConfirmation" placeholder="Confirma tu contraseña">
             </div>
 
-            <button type="submit" class="btn btn-info text-light fw-bold w-100">Cambiar</button>
+            <button type="submit" class="btn bg-info text-light fw-bold w-100">Cambiar</button>
 
             <?php if ($alert): ?>
                 <div class="mt-3 alert alert-<?= $alert['type'] ?> "><?= $alert['body'] ?></div>

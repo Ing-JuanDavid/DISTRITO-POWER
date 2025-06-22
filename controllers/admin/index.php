@@ -18,6 +18,7 @@ $pays = array_map(function ($pay) {
 $payMonths = Pay::getMonths($pays);
 
 
+
 $users = User::getUsers();
 $members = Membership::getMembers();
 $asists = Membership::getAsistToday();

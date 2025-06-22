@@ -6,7 +6,7 @@ class Auth
 {
     public function handle()
     {
-        if (! isset($_SESSION['user']) && ! isset($_COOKIE['token'])) {
+        if (! getFromSession('user') && ! isset($_COOKIE['token'])) {
             abort(403);
         }
     }

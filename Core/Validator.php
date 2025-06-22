@@ -2,6 +2,7 @@
 
 namespace Core;
 use \Core\Response;
+use Core\Services\AuthService;
 
 class Validator {
     
@@ -32,6 +33,30 @@ class Validator {
         if (! in_array($rol, $allowedRoles)) {
             Response::redirect($url, 'danger', 'Rol invalido');
         }
+    }
+
+    public static function userByToken($inputs)
+    {
+
+        $token = $_COOKIE['token'] ?? null;
+
+        if(! $token) Response::redirect('/login', 'danger', 'No podemos validar tu sesion');
+
+        $token = hash('md5', $token);
+
+        $user = \models\User::findByToken($token);
+
+        if(! $user) {
+            Response::redirect('/login', 'danger', 'Token invalido');
+        }
+
+        if($user->__get('email') != $inputs['email'] || $user->__get('rol') != $inputs['rol']  || $user->__get('userId') != $inputs['userId']) {
+            $params = session_get_cookie_params();
+            setcookie('PHPSESSID', '', time()-3600, $params["path"], $params["domain"], $params["secure"], $params["httponly"]);
+            setcookie("token", "", time() - 3600, "/", false, true); // Se elimina el token
+            abort(403);
+        }
+
     }
 
     public static function user($userId, $url)

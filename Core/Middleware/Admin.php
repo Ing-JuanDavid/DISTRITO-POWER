@@ -7,12 +7,10 @@ class Admin
 {
     public function handle()
     {
-        if (! isset($_SESSION['user']) || ! isset($_SESSION['rol'])) {
+        if (! getFromSession('user') || ! getFromSession('rol')) {
             if(! AuthService::chekKeepSession()) abort(403);
         }
 
-        if ($_SESSION['rol'] !== 'admin') {
-            abort(403);
-        }
+        if (getFromSession('rol') !== 'admin') abort(403);
     }
 }

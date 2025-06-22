@@ -153,7 +153,7 @@ class AdminService {
                 $pay->savePay();
                 Response::redirect($url, 'success', 'Pago registrado exitosamente');
             } catch(PDOException $e) {
-                Response::redirect($url, 'success', 'Error al registrar pago');
+                Response::redirect($url, 'danger', 'Error al registrar pago');
             }
         
     }

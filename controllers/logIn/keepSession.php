@@ -2,7 +2,7 @@
 
 use Core\Response;
 
-$user = $_SESSION['temp_user'] ?? null;
+$user = getFromSession('temp_user');
 
 view('logIn/keepSession.view.php', [
     'user' => $user,
