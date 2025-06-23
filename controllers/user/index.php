@@ -10,7 +10,7 @@ $links = require base_path('links.php');
 $user = User::findUserById($_SESSION['userId'] ?? null);
 
 $asists = array_map(function($asist) {
-    $asist['asistDate'] = stringToDate($asist['asistDate']);
+    $asist['asist_date'] = stringToDate($asist['asist_date']);
     return $asist;
 }, Membership::getAsistsByUSerId($_SESSION['userId']));
 
@@ -26,5 +26,5 @@ view('user/dashboard.php',  [
     'asists' => $asists,
     'pays' => $pays,
     'alert' => Response::getAlert(),
-    'count_asists' => countCurrentMonth($asists, 'asistDate')
+    'count_asists' => countCurrentMonth($asists, 'asist_date')
 ]);

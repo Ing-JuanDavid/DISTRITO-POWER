@@ -37,34 +37,34 @@ class Pay {
 
     // check if the user have a membership
     public function savePay() {
-        $sql = "INSERT INTO pay (userId, typeId) VALUES (?,?)";
+        $sql = "INSERT INTO pay (user_id, type_id) VALUES (?,?)";
         return self::getConnection()->query($sql, [$this->userId, $this->typeId]);
     }
 
 
     public static function getPays()
     {
-        $sql = 'SELECT p.payId, p.userId, p.typeId, p.payDate, p.value, u.name AS userName, m.name AS memName 
+        $sql = 'SELECT p.pay_id, p.user_id, p.type_id, p.pay_date, p.value, u.name AS user_name, m.name AS mem_name 
                 FROM pay p 
-                JOIN user u ON p.userId = u.userId 
-                JOIN membershipType m ON p.typeId = m.typeId ORDER BY p.payDate ASC';
+                JOIN user u ON p.user_id = u.user_id 
+                JOIN membership_type m ON p.type_id = m.type_id ORDER BY p.pay_date ASC';
         
         return self::getConnection()->query($sql)->fetchAll();
     }
 
     public static function getPaysByUserId($userId)
     {
-        $sql = 'SELECT p.payId AS pay_id, mt.name AS mem_name, p.value, p.payDate AS pay_date  
+        $sql = 'SELECT p.pay_id, mt.name AS mem_name, p.value, p.pay_date  
         FROM pay p
-        JOIN membershipType mt ON p.typeId = mt.typeId 
-        WHERE p.userId = ? ORDER BY pay_Date DESC'; 
+        JOIN membership_type mt ON p.type_id = mt.type_id 
+        WHERE p.user_id = ? ORDER BY pay_Date DESC'; 
         return self::getConnection()->query($sql, [$userId])->fetchAll();
     }
 
     public static function getMonths($pays) {
     $months = [];
     foreach($pays as $pay) {
-        $date = strtotime($pay['payDate']);
+        $date = strtotime($pay['pay_date']);
         $month = date('F-y', $date);
 
         if (!in_array($month, $months)) {
@@ -75,7 +75,7 @@ class Pay {
     }
 
     public static function getPaysByMonth($month) {
-        $sql = "SELECT * FROM pay WHERE DATE_FORMAT(payDate, '%M-%y') = ?";
+        $sql = "SELECT * FROM pay WHERE DATE_FORMAT(pay_date, '%M-%y') = ?";
         return self::getConnection()->query($sql, [$month])->fetchAll();
     }
 
@@ -84,7 +84,7 @@ class Pay {
         $result = [];
 
         foreach ($pays as $pay) {
-            $date = date('F', strtotime($pay['payDate']));
+            $date = date('F', strtotime($pay['pay_date']));
             $value = $pay['value'];
 
             if(! isset($result[$date])) $result[$date] = 0;

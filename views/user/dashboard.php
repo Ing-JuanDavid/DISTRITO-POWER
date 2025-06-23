@@ -220,7 +220,7 @@
                             <?php foreach ($asists as $asist): ?>
                                 <tr>
                                     <td> <?= ++$i ?> </td>
-                                    <td> <?= $asist['asistDate'] ?> </td>
+                                    <td> <?= $asist['asist_date'] ?> </td>
                                 </tr>
 
                             <?php endforeach; ?>
@@ -248,7 +248,7 @@
                                 <tr>
                                     <td> <?= $pay['pay_id'] ?> </td>
                                     <td> <?= $pay['mem_name'] ?> </td>
-                                    <td> <?= number_format($pay['value']) ?> </td>
+                                    <td> $<?= number_format($pay['value']) ?> </td>
                                     <td> <?= $pay['pay_date'] ?> </td>
                                 </tr>
                             <?php endforeach; ?>

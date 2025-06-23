@@ -18,7 +18,7 @@
             </div>
             
             <div class="mb-3">
-                <input type="password" class="form-control border-secondary-subtle" name="newPass" placeholder="Nueva ontraseña">
+                <input type="password" class="form-control border-secondary-subtle" name="newPass" placeholder="Nueva contraseña">
             </div>
 
             <div class="mb-3">

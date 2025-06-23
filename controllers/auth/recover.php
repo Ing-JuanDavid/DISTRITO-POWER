@@ -2,4 +2,4 @@
 
 use Core\Services\AuthService;
 
-AuthService::recover_pass();
+AuthService::recoverPass();

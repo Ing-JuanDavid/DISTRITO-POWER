@@ -134,25 +134,22 @@ function initSidebarSelection() {
 
 // Modals
 
-function initModals() {
-    const users = document.querySelectorAll('.editUser')
-    const userFields = document.querySelectorAll('.field-edit-user')
+// Delegación de eventos para editar usuario
+document.addEventListener('click', function (e) {
+    const userBtn = e.target.closest('.editUser');
+    if (userBtn) {
+        const userFields = document.querySelectorAll('.field-edit-user');
+        setModalUsers(userBtn, userFields);
+    }
+});
 
-    // Record mems
-    const mems = document.querySelectorAll('.editMem');
-    const memFields = document.querySelectorAll('.field-edit-mem')
-
-    users.forEach(user => {
-        user.addEventListener('click', ()=>setModalUsers(user, userFields))
-    })
-
-
-    mems.forEach(mem => {
-        mem.addEventListener('click', ()=>setModalMems(mem, memFields))
-    })
-}
-
-
+document.addEventListener('click', function (e) {
+    const memBtn = e.target.closest('.editMem');
+    if (memBtn) {
+        const memFields = document.querySelectorAll('.field-edit-mem');
+        setModalMems(memBtn, memFields);
+    }
+});
 
 function setModalUsers(user, userFields) {
     id = user.getAttribute('data-userId')
@@ -194,7 +191,6 @@ document.addEventListener('DOMContentLoaded', function () {
     initDataTables();
     initCharts();
     initSidebarSelection();
-    initModals();
 });
 
 

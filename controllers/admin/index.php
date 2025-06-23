@@ -10,7 +10,7 @@ $links = require base_path('links.php');
 
 
 $pays = array_map(function ($pay) {
-    $pay['payDate'] = stringToDate($pay['payDate']);
+    $pay['pay_date'] = stringToDate($pay['pay_date']);
     return $pay;
 }, Pay::getPays());
 
@@ -26,7 +26,7 @@ $asists = Membership::getAsistToday();
 $stats = [
     'users' => countAnything($users, 'rol', 'user'),
     'active_mems' => countAnything($members, 'status', 'activa'),
-    'pays_month' => countCurrentMonth($pays, 'payDate'),
+    'pays_month' => countCurrentMonth($pays, 'pay_date'),
     'asists_today' => sizeof($asists)
 ];
 

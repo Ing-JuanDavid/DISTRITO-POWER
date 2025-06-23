@@ -26,7 +26,7 @@
                     <form action="/membership/create" method="post">
                         <input type="hidden" name="_method" value="POST">
                         <input type="hidden" name="userId" value="<?= $_GET['id'] ?? null ?>">
-                        <input type="hidden" name="typeId" value="<?= $membership['typeId'] ?>">
+                        <input type="hidden" name="typeId" value="<?= $membership['type_id'] ?>">
                         <button type="submit" id="membership-btn" class="btn w-100">COMPRAR</button>
                     </form>
 

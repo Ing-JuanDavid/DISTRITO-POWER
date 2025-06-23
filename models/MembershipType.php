@@ -40,32 +40,32 @@ class MembershipType {
     }
 
     public function saveMembershipType() {
-        $sql = "INSERT INTO membershipType (typeId, name, duration, value) VALUES (?,?,?,?)";
+        $sql = "INSERT INTO membership_type (type_id, name, duration, value) VALUES (?,?,?,?)";
         return self::getConnection()->query($sql, [$this->typeId, $this->name, $this->duration, $this->value]);
     }
 
     public static function getMems() {
-        $sql = "SELECT * FROM membershipType";
+        $sql = "SELECT * FROM membership_type";
         return self::getConnection()->query($sql)->fetchAll();
     }
 
     public static function findById($id) {
-        $sql = "SELECT * FROM membershipType WHERE typeId = ?";
+        $sql = "SELECT * FROM membership_type WHERE type_id = ?";
         $result = self::getConnection()->query($sql, [$id])->fetch();
 
         if($result) {
-            return new MembershipType($result['typeId'], $result['name'], $result['duration'], $result['value']);
+            return new MembershipType($result['type_id'], $result['name'], $result['duration'], $result['value']);
         }
         return $result;
     }
 
     public static function editMem(...$props) {
-        $sql = "UPDATE membershipType SET name = ?, duration = ?, value = ? WHERE typeId = ?";
+        $sql = "UPDATE membership_type SET name = ?, duration = ?, value = ? WHERE type_id = ?";
         return self::getConnection()->query($sql, $props)->fetchAll();
     }
 
     public static function deleteById($id) {
-        $sql = "DELETE FROM membershipType WHERE typeId = ?";
+        $sql = "DELETE FROM membership_type WHERE type_id = ?";
         return self::getConnection()->query($sql, [$id]);
     }
 

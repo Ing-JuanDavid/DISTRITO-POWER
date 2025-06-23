@@ -164,7 +164,7 @@
                             <?php if ($users) : ?>
                                 <?php foreach ($users as $user) : ?>
                                     <tr>
-                                        <td><?= htmlspecialchars($user["userId"]) ?></td>
+                                        <td><?= htmlspecialchars($user["user_id"]) ?></td>
                                         <td><?= htmlspecialchars($user["name"]) ?></td>
                                         <td><?= htmlspecialchars($user["email"]) ?></td>
                                         <td><?= htmlspecialchars($user["rol"]) ?></td>
@@ -173,7 +173,7 @@
                                                 class="btn btn-sm btn-warning editUser"
                                                 data-bs-toggle="modal"
                                                 data-bs-target="#editUser"
-                                                data-userId="<?= $user['userId'] ?>"
+                                                data-userId="<?= $user['user_id'] ?>"
                                                 data-name="<?= $user['name'] ?>"
                                                 data-email="<?= $user['email'] ?>"
                                                 data-rol="<?= $user['rol'] ?>">
@@ -181,7 +181,7 @@
 
                                             </a>
 
-                                            <a class="btn btn-sm btn-danger" href="/admin/dashboard/destuser/?id=<?= $user['userId'] ?>"><i class="fa-solid fa-trash-can"></i></a>
+                                            <a class="btn btn-sm btn-danger" href="/admin/dashboard/destuser/?id=<?= $user['user_id'] ?>"><i class="fa-solid fa-trash-can"></i></a>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
@@ -218,16 +218,16 @@
                             <?php if ($mems) : ?>
                                 <?php foreach ($mems as $mem) : ?>
                                     <tr>
-                                        <td><?php echo htmlspecialchars($mem["typeId"]) ?></td>
-                                        <td><?php echo htmlspecialchars($mem["name"]) ?></td>
-                                        <td><?php echo htmlspecialchars($mem["duration"]) ?></td>
-                                        <td><?php echo htmlspecialchars($mem["value"]) ?></td>
+                                        <td><?= htmlspecialchars($mem["type_id"]) ?></td>
+                                        <td><?= htmlspecialchars($mem["name"]) ?></td>
+                                        <td><?= htmlspecialchars($mem["duration"]) ?></td>
+                                        <td>$<?= htmlspecialchars(number_format($mem["value"]), 3) ?></td>
                                         <td>
                                             <a
                                                 class="btn btn-sm btn-warning editMem"
                                                 data-bs-toggle="modal"
                                                 data-bs-target="#editMem"
-                                                data-typeId="<?= $mem['typeId'] ?>"
+                                                data-typeId="<?= $mem['type_id'] ?>"
                                                 data-name="<?= $mem['name'] ?>"
                                                 data-duration="<?= $mem['duration'] ?>"
                                                 data-value="<?= $mem['value'] ?>">
@@ -235,7 +235,7 @@
 
                                             </a>
 
-                                            <a class="btn btn-sm btn-danger" href="/admin/dashboard/destmem/?id=<?= $mem['typeId'] ?>"><i class="fa-solid fa-trash-can"></i></a>
+                                            <a class="btn btn-sm btn-danger" href="/admin/dashboard/destmem/?id=<?= $mem['type_id'] ?>"><i class="fa-solid fa-trash-can"></i></a>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
@@ -302,12 +302,12 @@
                             <?php if ($pays) : ?>
                                 <?php foreach ($pays as $pay) : ?>
                                     <tr>
-                                        <td><?= htmlspecialchars($pay["payId"]) ?></td>
-                                        <td><?= htmlspecialchars($pay["userId"]) ?></td>
-                                        <td><?= htmlspecialchars($pay["userName"]) ?></td>
-                                        <td><?= htmlspecialchars($pay["memName"]) ?></td>
-                                        <td><?= htmlspecialchars($pay["payDate"]) ?></td>
-                                        <td><?= htmlspecialchars($pay["value"]) ?></td>
+                                        <td><?= htmlspecialchars($pay["pay_id"]) ?></td>
+                                        <td><?= htmlspecialchars($pay["user_id"]) ?></td>
+                                        <td><?= htmlspecialchars($pay["user_name"]) ?></td>
+                                        <td><?= htmlspecialchars($pay["mem_name"]) ?></td>
+                                        <td><?= htmlspecialchars($pay["pay_date"]) ?></td>
+                                        <td>$<?= htmlspecialchars(number_format($pay["value"], 2)) ?></td>
                                     </tr>
                                 <?php endforeach; ?>
                             <?php endif; ?>
@@ -444,7 +444,7 @@
                         <select class="form-control w-50" name="typeId" id="">
                             <option value="" disable selected>Selecciona una membresia</option>
                             <?php foreach ($mems as $mem): ?>
-                                <?= "<option value='" . $mem['typeId'] .  "'" . ">" . $mem['name'] . "</option>" ?>
+                                <?= "<option value='" . $mem['type_id'] .  "'" . ">" . $mem['name'] . "</option>" ?>
                             <?php endforeach; ?>
                         </select>
 

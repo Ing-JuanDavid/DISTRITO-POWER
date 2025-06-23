@@ -38,30 +38,30 @@ class User {
     }
 
     public function saveUser() {
-            $sql = "INSERT INTO user (userId, name, email, password, rol) VALUES (?,?,?,?,?)";
+            $sql = "INSERT INTO user (user_id, name, email, password, rol) VALUES (?,?,?,?,?)";
             self::getConnection()->query($sql, [$this->userId, $this->name, $this->email, $this->password, $this->rol]);
     }
 
     public static function editProp($user, $prop, $value) {
         if(property_exists($user, $prop)) {
-            $sql = "UPDATE user SET $prop = ? WHERE userId = ?";
+            $sql = "UPDATE user SET $prop = ? WHERE user_id = ?";
             return self::getConnection()->query($sql, [$value, $user->__get('userId')]);
         }
     }
 
     public static function editUser(...$props)
     {
-        $sql = "UPDATE user set name = ?, email = ?, rol = ? WHERE userId = ?";
+        $sql = "UPDATE user set name = ?, email = ?, rol = ? WHERE user_id = ?";
         self::getConnection()->query($sql, $props);
     }
 
     public static function deleteById($id) {
-            $sql = "DELETE FROM user WHERE userId = ?";
+            $sql = "DELETE FROM user WHERE user_id = ?";
             return self::getConnection()->query($sql, [$id]);
     }
 
     public static function findUserById($id) {
-        $sql = "SELECT * FROM user WHERE userId = ?";
+        $sql = "SELECT * FROM user WHERE user_id = ?";
         $result =self::getConnection()->query($sql, [$id])->fetch();
 
         if($result) 
@@ -75,7 +75,7 @@ class User {
         $result = self::getConnection()->query($sql, [$email])->fetch();
 
         if($result) 
-            return new User($result["userId"], $result["name"], $email, $result["password"], $result["rol"], $result["token"]);
+            return new User($result["user_id"], $result["name"], $email, $result["password"], $result["rol"], $result["token"]);
         
         return $result;
     }
@@ -85,7 +85,7 @@ class User {
         $result = self::getConnection()->query($sql, [$token])->fetch();
 
         if($result) 
-            return new User($result["userId"], $result["name"], $result["email"], $result["password"], $result["rol"], $token);
+            return new User($result["user_id"], $result["name"], $result["email"], $result["password"], $result["rol"], $token);
         
         return null;
     }

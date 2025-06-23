@@ -42,33 +42,33 @@ class Membership {
 
     public static function findByUserId($userId)
     {
-        $sql = 'SELECT * FROM membership WHERE userId = ?';
+        $sql = 'SELECT * FROM membership WHERE user_id = ?';
         return self::getConnection()->query($sql, [$userId])->fetch();
     }
 
     public static function findByEmail($email)
     {
-        $sql = 'SELECT m.memId AS mem_id, u.name AS user_name, mt.name AS membership_type, m.startDate AS start_date, m.daysRe AS days_res, m.status
+        $sql = 'SELECT m.mem_id AS mem_id, u.name AS user_name, mt.name AS membership_type, m.start_date AS start_date, m.days_re AS days_res, m.status
                 FROM user u
-                JOIN membership m ON u.userId = m.userId
-                JOIN membershipType mt ON m.typeId = mt.typeId
-                JOIN pay p ON u.userId = p.userId where u.email = ?';
+                JOIN membership m ON u.user_id = m.user_id
+                JOIN membership_type mt ON m.type_id = mt.type_id
+                JOIN pay p ON u.user_id = p.user_id where u.email = ?';
 
         return self::getConnection()->query($sql, [$email])->fetch();
     }
 
     public static function findByMemId($memId)
     {
-        $sql = 'SELECT * FROM membership WHERE memId = ?';
+        $sql = 'SELECT * FROM membership WHERE mem_id = ?';
         return self::getConnection()->query($sql, [$memId])->fetch();
     }
 
     public static function getMembers()
     {
-        $sql = 'SELECT m.memId AS mem_id, u.name AS user_name, mt.name AS membership_type, m.startDate AS start_date, m.daysRe AS days_res, m.status
+        $sql = 'SELECT m.mem_id AS mem_id, u.name AS user_name, mt.name AS membership_type, m.start_date AS start_date, m.days_re AS days_res, m.status
         FROM user u
-        JOIN membership m ON u.userId = m.userId
-        JOIN membershipType mt ON m.typeId = mt.typeId';
+        JOIN membership m ON u.user_id = m.user_id
+        JOIN membership_type mt ON m.type_id = mt.type_id';
 
         return self::getConnection()->query($sql)->fetchAll();
     }
@@ -95,7 +95,7 @@ class Membership {
 
     public static function deleteByUserId($userId)
     {
-        $sql = 'DELETE FROM membership WHERE userId = ?';
+        $sql = 'DELETE FROM membership WHERE user_id = ?';
         return self::getConnection()->query($sql, [$userId]);
     }
 
@@ -103,25 +103,25 @@ class Membership {
     {
         $conn = self::getConnection();
 
-        $sql = 'SELECT count(*) AS count FROM asist WHERE userId = ? AND asistDate = CURRENT_DATE';
-        $stmt = $conn->query($sql, [$mem['userId']])->fetch();
+        $sql = 'SELECT count(*) AS count FROM asist WHERE user_id = ? AND asist_date = CURRENT_DATE';
+        $stmt = $conn->query($sql, [$mem['user_id']])->fetch();
 
         if($stmt['count']>=2) 
             throw new PDOException('No se puede tomar mas de dos veces la asistencia');
         
-        $sql = 'INSERT INTO asist (userId, asistDate) VALUES (?, CURRENT_DATE)';
-        $conn->query($sql, [$mem['userId']]);
+        $sql = 'INSERT INTO asist (user_id, asist_date) VALUES (?, CURRENT_DATE)';
+        $conn->query($sql, [$mem['user_id']]);
     }
 
     public static function getAsistsByUSerId($userId)
     {
-        $sql = 'SELECT * FROM asist WHERE userId = ? ORDER BY asistDate DESC';
+        $sql = 'SELECT * FROM asist WHERE user_id = ? ORDER BY asist_date DESC';
         return self::getConnection()->query($sql, [$userId])->fetchAll();
     }
 
     public static function getAsistToday()
     {
-        $sql = 'SELECT * FROM asist WHERE asistDate = CURRENT_DATE()';
+        $sql = 'SELECT * FROM asist WHERE asist_date = CURRENT_DATE()';
         return self::getConnection()->query($sql)->fetchAll();
     }
 }
